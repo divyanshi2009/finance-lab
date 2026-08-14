@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GST Calculator | Finance Lab</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Finance Lab
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
+    </nav>
+
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="calculator-header">
+
+        <p class="eyebrow">
+            FINANCIAL TOOL
+        </p>
+
+        <h1>GST Calculator</h1>
+
+        <p>
+            Calculate GST amount, tax-inclusive price
+            and understand the final amount clearly.
+        </p>
+
+    </div>
+
+
+    <div class="calculator-card">
+
+        <div class="form-group">
+
+            <label for="amount">
+                Base Amount
+            </label>
+
+            <input
+                type="number"
+                id="amount"
+                placeholder="Example: 10000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="gstRate">
+                GST Rate
+            </label>
+
+            <select id="gstRate">
+
+                <option value="5">5%</option>
+                <option value="12">12%</option>
+                <option value="18" selected>18%</option>
+                <option value="28">28%</option>
+
+            </select>
+
+        </div>
+
+
+        <button onclick="calculateGST()">
+            Calculate GST
+        </button>
+
+
+        <div id="gstResult"></div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="logo footer-logo">
+                Finance Lab
+            </div>
+
+            <p>
+                Practical finance tools for smarter decisions.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Finance Lab
+    </div>
+
+</footer>
+
+
+<script>
+
+function calculateGST() {
+
+    const amountInput =
+        document.getElementById("amount").value.trim();
+
+    const rate =
+        Number(document.getElementById("gstRate").value);
+
+
+    document.getElementById("gstResult").innerHTML = "";
+
+
+    /* =========================
+       VALIDATION
+    ========================= */
+
+    if (amountInput === "") {
+
+        showGSTError(
+            "Missing amount",
+            "Please enter a base amount before calculating GST."
+        );
+
+        return;
+    }
+
+
+    const amount =
+        Number(amountInput);
+
+
+    if (!Number.isFinite(amount)) {
+
+        showGSTError(
+            "Invalid amount",
+            "Please enter a valid numeric amount."
+        );
+
+        return;
+    }
+
+
+    if (amount < 0) {
+
+        showGSTError(
+            "Invalid amount",
+            "Base amount cannot be negative."
+        );
+
+        return;
+    }
+
+
+    if (amount === 0) {
+
+        showGSTError(
+            "Amount is zero",
+            "Please enter an amount greater than ₹0."
+        );
+
+        return;
+    }
+
+
+    /* =========================
+       CALCULATION
+    ========================= */
+
+    const gstAmount =
+        amount * rate / 100;
+
+
+    const totalAmount =
+        amount + gstAmount;
+
+
+    const gstShare =
+        (gstAmount / totalAmount) * 100;
+
+
+    /* =========================
+       RESULT
+    ========================= */
+
+    document.getElementById("gstResult").innerHTML = `
+
+        <div class="result-box">
+
+            <div class="result-row">
+
+                <span>
+                    Base Amount
+                </span>
+
+                <strong>
+                    ₹${amount.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    GST Rate
+                </span>
+
+                <strong>
+                    ${rate}%
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    GST Amount
+                </span>
+
+                <strong>
+                    ₹${gstAmount.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Final Amount
+                </span>
+
+                <strong class="profit">
+                    ₹${totalAmount.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    GST Share of Final Price
+                </span>
+
+                <strong>
+                    ${gstShare.toFixed(2)}%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="insight-box">
+
+            <h3>
+                GST Insight
+            </h3>
+
+            <p>
+                At ${rate}% GST, ₹${gstAmount.toFixed(2)}
+                is added to the base amount.
+                The final amount becomes
+                ₹${totalAmount.toFixed(2)}.
+            </p>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+function showGSTError(title, message) {
+
+    document.getElementById("gstResult").innerHTML = `
+
+        <div class="insight-box">
+
+            <h3>
+                ${title}
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+
+</html>

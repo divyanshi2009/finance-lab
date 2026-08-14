@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Financial Health Check | Finance Lab</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Finance Lab
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
+    </nav>
+
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="calculator-header">
+
+        <p class="eyebrow">
+            FINANCIAL CHECK
+        </p>
+
+        <h1>Financial Health Check</h1>
+
+        <p>
+            Get an educational snapshot of your
+            income, expenses, savings and debt.
+        </p>
+
+    </div>
+
+
+    <div class="calculator-card">
+
+        <div class="form-group">
+
+            <label for="income">
+                Monthly Income
+            </label>
+
+            <input
+                type="number"
+                id="income"
+                placeholder="Example: 50000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="expenses">
+                Monthly Expenses
+            </label>
+
+            <input
+                type="number"
+                id="expenses"
+                placeholder="Example: 30000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="savings">
+                Monthly Savings
+            </label>
+
+            <input
+                type="number"
+                id="savings"
+                placeholder="Example: 10000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="debt">
+                Monthly Debt / Loan Payment
+            </label>
+
+            <input
+                type="number"
+                id="debt"
+                placeholder="Example: 5000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <button onclick="checkFinancialHealth()">
+            Check Financial Health
+        </button>
+
+
+        <div id="healthResult"></div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="logo footer-logo">
+                Finance Lab
+            </div>
+
+            <p>
+                Practical finance tools for smarter decisions.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Finance Lab
+    </div>
+
+</footer>
+
+
+<script>
+
+function checkFinancialHealth() {
+
+    const incomeInput =
+        document.getElementById("income").value.trim();
+
+    const expensesInput =
+        document.getElementById("expenses").value.trim();
+
+    const savingsInput =
+        document.getElementById("savings").value.trim();
+
+    const debtInput =
+        document.getElementById("debt").value.trim();
+
+
+    document.getElementById("healthResult").innerHTML = "";
+
+
+    /* =========================
+       VALIDATION
+    ========================= */
+
+    if (
+        incomeInput === "" ||
+        expensesInput === "" ||
+        savingsInput === "" ||
+        debtInput === ""
+    ) {
+
+        showHealthError(
+            "Missing information",
+            "Please complete all four fields before checking your financial health."
+        );
+
+        return;
+    }
+
+
+    const income = Number(incomeInput);
+    const expenses = Number(expensesInput);
+    const savings = Number(savingsInput);
+    const debt = Number(debtInput);
+
+
+    if (
+        !Number.isFinite(income) ||
+        !Number.isFinite(expenses) ||
+        !Number.isFinite(savings) ||
+        !Number.isFinite(debt)
+    ) {
+
+        showHealthError(
+            "Invalid input",
+            "Please enter valid numeric values."
+        );
+
+        return;
+    }
+
+
+    if (income <= 0) {
+
+        showHealthError(
+            "Invalid income",
+            "Monthly income must be greater than ₹0."
+        );
+
+        return;
+    }
+
+
+    if (
+        expenses < 0 ||
+        savings < 0 ||
+        debt < 0
+    ) {
+
+        showHealthError(
+            "Invalid amount",
+            "Expenses, savings and debt payments cannot be negative."
+        );
+
+        return;
+    }
+
+
+    /* =========================
+       CALCULATIONS
+    ========================= */
+
+    const savingsRate =
+        (savings / income) * 100;
+
+    const expenseRate =
+        (expenses / income) * 100;
+
+    const debtRate =
+        (debt / income) * 100;
+
+    const remaining =
+        income - expenses;
+
+
+    /* =========================
+       SCORE
+    ========================= */
+
+    let score = 100;
+
+
+    if (expenseRate > 80) {
+
+        score -= 30;
+
+    } else if (expenseRate > 60) {
+
+        score -= 15;
+    }
+
+
+    if (savingsRate < 10) {
+
+        score -= 25;
+
+    } else if (savingsRate < 20) {
+
+        score -= 10;
+    }
+
+
+    if (debtRate > 40) {
+
+        score -= 25;
+
+    } else if (debtRate > 20) {
+
+        score -= 10;
+    }
+
+
+    if (remaining < 0) {
+
+        score -= 20;
+    }
+
+
+    score =
+        Math.max(0, Math.min(100, score));
+
+
+    /* =========================
+       STATUS
+    ========================= */
+
+    let status;
+    let message;
+
+
+    if (score >= 80) {
+
+        status = "Strong";
+
+        message =
+            "Your current numbers show a relatively strong balance between income, expenses, savings and debt.";
+
+    } else if (score >= 60) {
+
+        status = "Moderate";
+
+        message =
+            "Your current financial position has some healthy areas, but there may be room to improve savings, expenses or debt management.";
+
+    } else {
+
+        status = "Needs Attention";
+
+        message =
+            "Your current numbers indicate that your monthly balance, savings or debt position may need closer attention.";
+
+    }
+
+
+    /* =========================
+       RESULT
+    ========================= */
+
+    document.getElementById("healthResult").innerHTML = `
+
+        <div class="result-box">
+
+            <div class="result-row">
+
+                <span>
+                    Financial Health Score
+                </span>
+
+                <strong class="profit">
+                    ${score}/100
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Status
+                </span>
+
+                <strong>
+                    ${status}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Monthly Balance
+                </span>
+
+                <strong>
+                    ₹${Math.abs(remaining).toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Expense Rate
+                </span>
+
+                <strong>
+                    ${expenseRate.toFixed(1)}%
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Savings Rate
+                </span>
+
+                <strong>
+                    ${savingsRate.toFixed(1)}%
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Debt Rate
+                </span>
+
+                <strong>
+                    ${debtRate.toFixed(1)}%
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="insight-box">
+
+            <h3>
+                Financial Health Insight
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+            <p>
+                This score is an educational indicator,
+                not a professional financial assessment.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showHealthError(title, message) {
+
+    document.getElementById("healthResult").innerHTML = `
+
+        <div class="insight-box">
+
+            <h3>
+                ${title}
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+
+</html>

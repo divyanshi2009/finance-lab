@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Finance Challenge | Finance Lab</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Finance Lab
+    </a>
+
+   <nav>
+    <a href="index.html">Home</a>
+    <a href="tools.html">Tools</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="learn.html">Learn</a>
+    <a href="quiz.html">Challenge</a>
+    <a href="health.html">Health</a>
+</nav>
+
+</header>
+
+
+<main class="quiz-page">
+
+    <div class="calculator-header">
+
+        <p class="eyebrow">
+            FINANCE CHALLENGE
+        </p>
+
+        <h1>
+            Test your finance thinking.
+        </h1>
+
+        <p>
+            Answer a few real-world questions and
+            see how well you understand basic finance.
+        </p>
+
+    </div>
+
+
+    <div class="quiz-card">
+
+        <div class="quiz-top">
+
+            <span id="questionNumber">
+                Question 1 of 5
+            </span>
+
+            <span id="scoreDisplay">
+                Score: 0
+            </span>
+
+        </div>
+
+
+        <div class="progress-bar">
+
+            <div id="progress"></div>
+
+        </div>
+
+
+        <h2 id="question">
+            Question will appear here.
+        </h2>
+
+
+        <div id="options"></div>
+
+
+        <div id="feedback"></div>
+
+
+        <button id="nextButton" onclick="nextQuestion()">
+            Next Question
+        </button>
+
+    </div>
+
+
+    <div id="finalResult"></div>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="logo footer-logo">
+                Finance Lab
+            </div>
+
+            <p>
+                Practical finance tools for smarter decisions.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Finance Lab
+    </div>
+
+</footer>
+
+
+<script>
+
+const questions = [
+
+    {
+        question:
+            "A business earns ₹1,00,000 in revenue and has ₹70,000 in expenses. What is its profit?",
+
+        options: [
+            "₹20,000",
+            "₹30,000",
+            "₹70,000",
+            "₹1,70,000"
+        ],
+
+        answer: 1,
+
+        explanation:
+            "Profit = Revenue − Expenses. ₹1,00,000 − ₹70,000 = ₹30,000."
+    },
+
+
+    {
+        question:
+            "If your monthly income is ₹50,000 and you save ₹10,000, what is your savings rate?",
+
+        options: [
+            "10%",
+            "15%",
+            "20%",
+            "25%"
+        ],
+
+        answer: 2,
+
+        explanation:
+            "Savings Rate = Savings ÷ Income × 100 = ₹10,000 ÷ ₹50,000 × 100 = 20%."
+    },
+
+
+    {
+        question:
+            "Which of these is generally an asset?",
+
+        options: [
+            "Loan payable",
+            "Credit card debt",
+            "Cash",
+            "Outstanding bill"
+        ],
+
+        answer: 2,
+
+        explanation:
+            "Cash is a resource with economic value, so it is generally treated as an asset."
+    },
+
+
+    {
+        question:
+            "At the break-even point, a business has:",
+
+        options: [
+            "Only profit",
+            "Only loss",
+            "Revenue equal to total costs",
+            "No revenue"
+        ],
+
+        answer: 2,
+
+        explanation:
+            "Break-even occurs when total revenue equals total costs."
+    },
+
+
+    {
+        question:
+            "What happens when expenses increase while revenue stays the same?",
+
+        options: [
+            "Profit usually increases",
+            "Profit usually decreases",
+            "Revenue increases",
+            "Nothing changes"
+        ],
+
+        answer: 1,
+
+        explanation:
+            "When revenue stays the same and expenses rise, the amount left as profit becomes smaller."
+    }
+
+];
+
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+
+function loadQuestion() {
+
+    answered = false;
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionNumber").innerText =
+        `Question ${currentQuestion + 1} of ${questions.length}`;
+
+    document.getElementById("scoreDisplay").innerText =
+        `Score: ${score}`;
+
+    document.getElementById("question").innerText =
+        q.question;
+
+
+    const optionsContainer =
+        document.getElementById("options");
+
+    optionsContainer.innerHTML = "";
+
+    document.getElementById("feedback").innerHTML = "";
+
+    document.getElementById("nextButton").style.display = "none";
+
+
+    const progress =
+        ((currentQuestion) / questions.length) * 100;
+
+    document.getElementById("progress").style.width =
+        progress + "%";
+
+
+    q.options.forEach((option, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "quiz-option";
+
+        button.innerText = option;
+
+        button.onclick = function () {
+            checkAnswer(index, button);
+        };
+
+        optionsContainer.appendChild(button);
+
+    });
+
+}
+
+
+function checkAnswer(selectedIndex, selectedButton) {
+
+    if (answered) {
+        return;
+    }
+
+    answered = true;
+
+    const q = questions[currentQuestion];
+
+    const allButtons =
+        document.querySelectorAll(".quiz-option");
+
+
+    allButtons.forEach(button => {
+        button.disabled = true;
+    });
+
+
+    if (selectedIndex === q.answer) {
+
+        score++;
+
+        selectedButton.classList.add("correct");
+
+        document.getElementById("feedback").innerHTML = `
+            <div class="quiz-feedback correct-feedback">
+                <strong>Correct!</strong>
+                <p>${q.explanation}</p>
+            </div>
+        `;
+
+    } else {
+
+        selectedButton.classList.add("wrong");
+
+        allButtons[q.answer].classList.add("correct");
+
+        document.getElementById("feedback").innerHTML = `
+            <div class="quiz-feedback wrong-feedback">
+                <strong>Not quite.</strong>
+                <p>${q.explanation}</p>
+            </div>
+        `;
+    }
+
+
+    document.getElementById("scoreDisplay").innerText =
+        `Score: ${score}`;
+
+
+    if (currentQuestion < questions.length - 1) {
+
+        document.getElementById("nextButton").style.display =
+            "block";
+
+    } else {
+
+        showFinalResult();
+
+    }
+
+}
+
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    loadQuestion();
+
+}
+
+
+function showFinalResult() {
+
+    document.getElementById("question").innerText =
+        "Challenge Complete!";
+
+    document.getElementById("options").innerHTML = "";
+
+    document.getElementById("feedback").innerHTML = "";
+
+    document.getElementById("nextButton").style.display =
+        "none";
+
+    document.getElementById("progress").style.width =
+        "100%";
+
+
+    let message;
+
+    if (score === 5) {
+
+        message =
+            "Excellent! You have a strong understanding of basic finance.";
+
+    } else if (score >= 3) {
+
+        message =
+            "Good job! You have a solid foundation, with a few concepts to strengthen.";
+
+    } else {
+
+        message =
+            "Keep learning! Review the Finance Lab concepts and try again.";
+
+    }
+
+
+    document.getElementById("finalResult").innerHTML = `
+
+        <div class="quiz-result">
+
+            <p class="eyebrow">
+                YOUR RESULT
+            </p>
+
+            <h2>
+                ${score} / ${questions.length}
+            </h2>
+
+            <p>
+                ${message}
+            </p>
+
+            <button onclick="restartQuiz()">
+                Try Again
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+    score = 0;
+
+    document.getElementById("finalResult").innerHTML = "";
+
+    loadQuestion();
+
+}
+
+
+loadQuestion();
+
+</script>
+
+</body>
+
+</html>

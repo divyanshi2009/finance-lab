@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Investment Calculator | Finance Lab</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Finance Lab
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
+    </nav>
+
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="calculator-header">
+
+        <p class="eyebrow">
+            FINANCIAL TOOL
+        </p>
+
+        <h1>Investment Calculator</h1>
+
+        <p>
+            Estimate how an investment may grow over time
+            using a simplified compound-growth model.
+        </p>
+
+    </div>
+
+
+    <div class="calculator-card">
+
+        <div class="form-group">
+
+            <label for="initialInvestment">
+                Initial Investment
+            </label>
+
+            <input
+                type="number"
+                id="initialInvestment"
+                placeholder="Example: 10000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="monthlyInvestment">
+                Monthly Investment
+            </label>
+
+            <input
+                type="number"
+                id="monthlyInvestment"
+                placeholder="Example: 2000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="returnRate">
+                Expected Annual Return (%)
+            </label>
+
+            <input
+                type="number"
+                id="returnRate"
+                placeholder="Example: 10"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="investmentYears">
+                Investment Period (Years)
+            </label>
+
+            <input
+                type="number"
+                id="investmentYears"
+                placeholder="Example: 10"
+                min="0"
+                step="0.1"
+            >
+
+        </div>
+
+
+        <button onclick="calculateInvestment()">
+            Calculate Growth
+        </button>
+
+
+        <div id="investmentResult"></div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="logo footer-logo">
+                Finance Lab
+            </div>
+
+            <p>
+                Practical finance tools for smarter decisions.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Finance Lab
+    </div>
+
+</footer>
+
+
+<script>
+
+function calculateInvestment() {
+
+    const initialInput =
+        document.getElementById("initialInvestment").value.trim();
+
+    const monthlyInput =
+        document.getElementById("monthlyInvestment").value.trim();
+
+    const rateInput =
+        document.getElementById("returnRate").value.trim();
+
+    const yearsInput =
+        document.getElementById("investmentYears").value.trim();
+
+
+    document.getElementById("investmentResult").innerHTML = "";
+
+
+    /* =========================
+       VALIDATION
+    ========================= */
+
+    if (
+        initialInput === "" ||
+        monthlyInput === "" ||
+        rateInput === "" ||
+        yearsInput === ""
+    ) {
+
+        showInvestmentError(
+            "Missing information",
+            "Please complete all investment fields."
+        );
+
+        return;
+    }
+
+
+    const initial =
+        Number(initialInput);
+
+    const monthly =
+        Number(monthlyInput);
+
+    const annualRate =
+        Number(rateInput);
+
+    const years =
+        Number(yearsInput);
+
+
+    if (
+        !Number.isFinite(initial) ||
+        !Number.isFinite(monthly) ||
+        !Number.isFinite(annualRate) ||
+        !Number.isFinite(years)
+    ) {
+
+        showInvestmentError(
+            "Invalid input",
+            "Please enter valid numeric values."
+        );
+
+        return;
+    }
+
+
+    if (initial < 0 || monthly < 0) {
+
+        showInvestmentError(
+            "Invalid investment",
+            "Investment amounts cannot be negative."
+        );
+
+        return;
+    }
+
+
+    if (annualRate < 0) {
+
+        showInvestmentError(
+            "Invalid return rate",
+            "Expected annual return cannot be negative."
+        );
+
+        return;
+    }
+
+
+    if (years <= 0) {
+
+        showInvestmentError(
+            "Invalid investment period",
+            "Investment period must be greater than 0 years."
+        );
+
+        return;
+    }
+
+
+    /* =========================
+       CALCULATION
+    ========================= */
+
+    const months =
+        years * 12;
+
+    const monthlyRate =
+        annualRate / 12 / 100;
+
+
+    let futureInitial;
+    let futureMonthly;
+
+
+    if (monthlyRate === 0) {
+
+        futureInitial =
+            initial;
+
+        futureMonthly =
+            monthly * months;
+
+    } else {
+
+        futureInitial =
+            initial *
+            Math.pow(1 + monthlyRate, months);
+
+        futureMonthly =
+            monthly *
+            (
+                (
+                    Math.pow(1 + monthlyRate, months) - 1
+                )
+                / monthlyRate
+            );
+    }
+
+
+    const futureValue =
+        futureInitial + futureMonthly;
+
+
+    const totalInvested =
+        initial + (monthly * months);
+
+
+    const estimatedGrowth =
+        futureValue - totalInvested;
+
+
+    const growthRate =
+        totalInvested > 0
+            ? (estimatedGrowth / totalInvested) * 100
+            : 0;
+
+
+    /* =========================
+       INSIGHT
+    ========================= */
+
+    let message;
+
+
+    if (annualRate === 0) {
+
+        message =
+            "With a 0% assumed return, the projected value simply equals the amount you contribute.";
+
+    } else if (years >= 10) {
+
+        message =
+            "A longer investment period gives compounding more time to affect the projected value. Actual returns can vary significantly.";
+
+    } else {
+
+        message =
+            "The projected growth depends on your contribution, assumed return and investment period. This is a simplified estimate.";
+
+    }
+
+
+    /* =========================
+       RESULT
+    ========================= */
+
+    document.getElementById("investmentResult").innerHTML = `
+
+        <div class="result-box">
+
+            <div class="result-row">
+
+                <span>
+                    Total Invested
+                </span>
+
+                <strong>
+                    ₹${totalInvested.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Estimated Growth
+                </span>
+
+                <strong>
+                    ₹${estimatedGrowth.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Growth on Contributions
+                </span>
+
+                <strong>
+                    ${growthRate.toFixed(2)}%
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Estimated Future Value
+                </span>
+
+                <strong class="profit">
+                    ₹${futureValue.toFixed(2)}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="insight-box">
+
+            <h3>
+                Investment Insight
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+            <p>
+                This projection is educational only.
+                It does not guarantee future investment returns.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showInvestmentError(title, message) {
+
+    document.getElementById("investmentResult").innerHTML = `
+
+        <div class="insight-box">
+
+            <h3>
+                ${title}
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+
+</html>

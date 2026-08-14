@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Break-Even Analysis | Finance Lab</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Finance Lab
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
+    </nav>
+
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="calculator-header">
+
+        <p class="eyebrow">
+            FINANCIAL TOOL
+        </p>
+
+        <h1>Break-Even Analysis</h1>
+
+        <p>
+            Find how many units you need to sell
+            before your total costs are covered.
+        </p>
+
+    </div>
+
+
+    <div class="calculator-card">
+
+        <div class="form-group">
+
+            <label for="fixedCost">
+                Fixed Costs
+            </label>
+
+            <input
+                type="number"
+                id="fixedCost"
+                placeholder="Example: 50000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="variableCost">
+                Variable Cost per Unit
+            </label>
+
+            <input
+                type="number"
+                id="variableCost"
+                placeholder="Example: 50"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="sellingPrice">
+                Selling Price per Unit
+            </label>
+
+            <input
+                type="number"
+                id="sellingPrice"
+                placeholder="Example: 100"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <button onclick="calculateBreakEven()">
+            Analyse Break-Even
+        </button>
+
+
+        <div id="breakEvenResult"></div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="logo footer-logo">
+                Finance Lab
+            </div>
+
+            <p>
+                Practical finance tools for smarter decisions.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Finance Lab
+    </div>
+
+</footer>
+
+
+<script>
+
+function calculateBreakEven() {
+
+    const fixedInput =
+        document.getElementById("fixedCost").value.trim();
+
+    const variableInput =
+        document.getElementById("variableCost").value.trim();
+
+    const sellingInput =
+        document.getElementById("sellingPrice").value.trim();
+
+
+    document.getElementById("breakEvenResult").innerHTML = "";
+
+
+    /* =========================
+       VALIDATION
+    ========================= */
+
+    if (
+        fixedInput === "" ||
+        variableInput === "" ||
+        sellingInput === ""
+    ) {
+
+        showBreakEvenError(
+            "Missing information",
+            "Please enter fixed costs, variable cost per unit and selling price per unit."
+        );
+
+        return;
+    }
+
+
+    const fixedCost =
+        Number(fixedInput);
+
+    const variableCost =
+        Number(variableInput);
+
+    const sellingPrice =
+        Number(sellingInput);
+
+
+    if (
+        !Number.isFinite(fixedCost) ||
+        !Number.isFinite(variableCost) ||
+        !Number.isFinite(sellingPrice)
+    ) {
+
+        showBreakEvenError(
+            "Invalid input",
+            "Please enter valid numeric values."
+        );
+
+        return;
+    }
+
+
+    if (
+        fixedCost < 0 ||
+        variableCost < 0 ||
+        sellingPrice < 0
+    ) {
+
+        showBreakEvenError(
+            "Invalid amount",
+            "Costs and selling price cannot be negative."
+        );
+
+        return;
+    }
+
+
+    if (sellingPrice <= variableCost) {
+
+        showBreakEvenError(
+            "Break-even cannot be calculated",
+            "Selling price must be greater than variable cost per unit."
+        );
+
+        return;
+    }
+
+
+    /* =========================
+       CALCULATION
+    ========================= */
+
+    const contribution =
+        sellingPrice - variableCost;
+
+
+    const contributionMargin =
+        (contribution / sellingPrice) * 100;
+
+
+    const breakEvenUnits =
+        fixedCost / contribution;
+
+
+    const breakEvenSales =
+        breakEvenUnits * sellingPrice;
+
+
+    /* =========================
+       INSIGHT
+    ========================= */
+
+    let message;
+
+
+    if (fixedCost === 0) {
+
+        message =
+            "With no fixed costs entered, the break-even point is zero units.";
+
+    } else if (contributionMargin < 20) {
+
+        message =
+            "The contribution margin is relatively low, so a larger number of units is required to cover fixed costs.";
+
+    } else {
+
+        message =
+            "Each unit contributes toward covering fixed costs after its variable cost is paid.";
+
+    }
+
+
+    /* =========================
+       RESULT
+    ========================= */
+
+    document.getElementById("breakEvenResult").innerHTML = `
+
+        <div class="result-box">
+
+            <div class="result-row">
+
+                <span>
+                    Fixed Costs
+                </span>
+
+                <strong>
+                    ₹${fixedCost.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Contribution per Unit
+                </span>
+
+                <strong>
+                    ₹${contribution.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Contribution Margin
+                </span>
+
+                <strong>
+                    ${contributionMargin.toFixed(2)}%
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Break-Even Units
+                </span>
+
+                <strong class="profit">
+                    ${Math.ceil(breakEvenUnits)} units
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Break-Even Sales
+                </span>
+
+                <strong>
+                    ₹${breakEvenSales.toFixed(2)}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="insight-box">
+
+            <h3>
+                Break-Even Insight
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+            <p>
+                You need approximately
+                ${Math.ceil(breakEvenUnits)}
+                units of sales to cover the entered costs.
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================
+   ERROR
+========================= */
+
+function showBreakEvenError(title, message) {
+
+    document.getElementById("breakEvenResult").innerHTML = `
+
+        <div class="insight-box">
+
+            <h3>
+                ${title}
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+
+</html>

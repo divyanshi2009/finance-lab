@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Budget Planner | Finance Lab</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Finance Lab
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
+    </nav>
+
+</header>
+
+
+<main class="calculator-page">
+
+    <div class="calculator-header">
+
+        <p class="eyebrow">
+            FINANCIAL TOOL
+        </p>
+
+        <h1>Budget Planner</h1>
+
+        <p>
+            Understand your monthly income, expenses,
+            remaining balance and saving position.
+        </p>
+
+    </div>
+
+
+    <div class="calculator-card">
+
+        <div class="form-group">
+
+            <label for="income">
+                Monthly Income
+            </label>
+
+            <input
+                type="number"
+                id="income"
+                placeholder="Example: 50000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="expenses">
+                Monthly Expenses
+            </label>
+
+            <input
+                type="number"
+                id="expenses"
+                placeholder="Example: 30000"
+                min="0"
+                step="0.01"
+            >
+
+        </div>
+
+
+        <button onclick="calculateBudget()">
+            Analyse My Budget
+        </button>
+
+
+        <div id="budgetResult"></div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="logo footer-logo">
+                Finance Lab
+            </div>
+
+            <p>
+                Practical finance tools for smarter decisions.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Finance Lab
+    </div>
+
+</footer>
+
+
+<script>
+
+function calculateBudget() {
+
+    const incomeInput =
+        document.getElementById("income").value.trim();
+
+    const expensesInput =
+        document.getElementById("expenses").value.trim();
+
+
+    document.getElementById("budgetResult").innerHTML = "";
+
+
+    /* =========================
+       VALIDATION
+    ========================= */
+
+    if (incomeInput === "" || expensesInput === "") {
+
+        showBudgetError(
+            "Missing information",
+            "Please enter both monthly income and monthly expenses."
+        );
+
+        return;
+    }
+
+
+    const income = Number(incomeInput);
+    const expenses = Number(expensesInput);
+
+
+    if (!Number.isFinite(income) || !Number.isFinite(expenses)) {
+
+        showBudgetError(
+            "Invalid input",
+            "Please enter valid numeric values."
+        );
+
+        return;
+    }
+
+
+    if (income <= 0) {
+
+        showBudgetError(
+            "Invalid income",
+            "Monthly income must be greater than ₹0."
+        );
+
+        return;
+    }
+
+
+    if (expenses < 0) {
+
+        showBudgetError(
+            "Invalid expenses",
+            "Expenses cannot be negative."
+        );
+
+        return;
+    }
+
+
+    /* =========================
+       CALCULATIONS
+    ========================= */
+
+    const remaining =
+        income - expenses;
+
+
+    const expenseRate =
+        (expenses / income) * 100;
+
+
+    const remainingRate =
+        (remaining / income) * 100;
+
+
+    /* =========================
+       BUDGET STATUS
+    ========================= */
+
+    let status;
+    let message;
+
+
+    if (remaining < 0) {
+
+        status = "Deficit";
+
+        message =
+            "Your expenses are higher than your income. Your current budget is running at a deficit.";
+
+    }
+    else if (remaining === 0) {
+
+        status = "Fully Used";
+
+        message =
+            "Your entire income is being used by expenses. There is currently no amount left over.";
+
+    }
+    else if (remainingRate < 10) {
+
+        status = "Tight";
+
+        message =
+            "You have a positive balance, but only a small part of your income remains after expenses.";
+
+    }
+    else if (remainingRate < 20) {
+
+        status = "Moderate";
+
+        message =
+            "Your budget has some room left. Tracking your largest expenses may help increase your remaining balance.";
+
+    }
+    else {
+
+        status = "Healthy";
+
+        message =
+            "A meaningful portion of your income remains after expenses. Continue tracking spending and maintaining this balance.";
+
+    }
+
+
+    /* =========================
+       RESULT
+    ========================= */
+
+    document.getElementById("budgetResult").innerHTML = `
+
+        <div class="result-box">
+
+            <div class="result-row">
+
+                <span>
+                    Monthly Income
+                </span>
+
+                <strong>
+                    ₹${income.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Monthly Expenses
+                </span>
+
+                <strong>
+                    ₹${expenses.toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Remaining Balance
+                </span>
+
+                <strong class="profit">
+                    ₹${Math.abs(remaining).toFixed(2)}
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Expense Rate
+                </span>
+
+                <strong>
+                    ${expenseRate.toFixed(2)}%
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Remaining Rate
+                </span>
+
+                <strong>
+                    ${remainingRate.toFixed(2)}%
+                </strong>
+
+            </div>
+
+
+            <div class="result-row">
+
+                <span>
+                    Budget Status
+                </span>
+
+                <strong>
+                    ${status}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="insight-box">
+
+            <h3>
+                Budget Insight
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================
+   ERROR MESSAGE
+========================= */
+
+function showBudgetError(title, message) {
+
+    document.getElementById("budgetResult").innerHTML = `
+
+        <div class="insight-box">
+
+            <h3>
+                ${title}
+            </h3>
+
+            <p>
+                ${message}
+            </p>
+
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+
+</html>
