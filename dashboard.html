@@ -8,6 +8,63 @@
     <title>Financial Dashboard | Finance Lab</title>
 
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .dashboard-progress {
+            margin-top: 30px;
+            padding: 28px;
+            background: #ffffff;
+            border: 1px solid #e4e2dc;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(11,18,32,0.06);
+        }
+
+        .progress-item {
+            margin-bottom: 24px;
+        }
+
+        .progress-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 9px;
+        }
+
+        .progress-header span {
+            color: #596273;
+            font-size: 14px;
+        }
+
+        .progress-header strong {
+            color: #0b1220;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 9px;
+            background: #eef0f4;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #5b8def;
+            border-radius: 20px;
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-progress {
+                padding: 22px 18px;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -23,6 +80,7 @@
         <a href="tools.html">Tools</a>
         <a href="dashboard.html">Dashboard</a>
         <a href="learn.html">Learn</a>
+        <a href="audit.html">Audit</a>
         <a href="quiz.html">Challenge</a>
         <a href="health.html">Health</a>
     </nav>
@@ -261,14 +319,11 @@ function generateDashboard() {
     const remaining =
         income - expenses;
 
-
     const savingsRate =
         (savings / income) * 100;
 
-
     const expenseRate =
         (expenses / income) * 100;
-
 
     const debtRate =
         (debt / income) * 100;
@@ -280,10 +335,9 @@ function generateDashboard() {
 
     let status;
 
-
     if (remaining < 0) {
 
-        status = "Needs Attention";
+        status = "Review Needed";
 
     } else if (
         savingsRate >= 20 &&
@@ -291,7 +345,7 @@ function generateDashboard() {
         expenseRate <= 70
     ) {
 
-        status = "Strong";
+        status = "Healthy Balance";
 
     } else if (
         savingsRate < 10 ||
@@ -299,7 +353,7 @@ function generateDashboard() {
         expenseRate > 80
     ) {
 
-        status = "Needs Attention";
+        status = "Review Needed";
 
     } else {
 
@@ -318,6 +372,20 @@ function generateDashboard() {
             debtRate,
             remaining
         );
+
+
+    /* =========================
+       PROGRESS BAR VALUES
+    ========================= */
+
+    const savingsBar =
+        Math.min(Math.max(savingsRate, 0), 100);
+
+    const expenseBar =
+        Math.min(Math.max(expenseRate, 0), 100);
+
+    const debtBar =
+        Math.min(Math.max(debtRate, 0), 100);
 
 
     /* =========================
@@ -440,6 +508,88 @@ function generateDashboard() {
         </div>
 
 
+        <div class="dashboard-progress">
+
+            <div class="progress-item">
+
+                <div class="progress-header">
+
+                    <span>
+                        Savings Rate
+                    </span>
+
+                    <strong>
+                        ${savingsRate.toFixed(1)}%
+                    </strong>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width: ${savingsBar}%">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-item">
+
+                <div class="progress-header">
+
+                    <span>
+                        Expense Rate
+                    </span>
+
+                    <strong>
+                        ${expenseRate.toFixed(1)}%
+                    </strong>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width: ${expenseBar}%">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-item">
+
+                <div class="progress-header">
+
+                    <span>
+                        Debt Rate
+                    </span>
+
+                    <strong>
+                        ${debtRate.toFixed(1)}%
+                    </strong>
+
+                </div>
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width: ${debtBar}%">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
         <div class="insight-box">
 
             <h3>
@@ -485,7 +635,7 @@ function getDashboardMessage(
         expenseRate <= 70
     ) {
 
-        return "Your current numbers show a relatively strong monthly balance between spending, saving and debt payments.";
+        return "Your current numbers show a relatively healthy monthly balance between spending, saving and debt payments.";
 
     }
 
@@ -499,7 +649,7 @@ function getDashboardMessage(
 
     if (debtRate > 40) {
 
-        return "A significant portion of your income is going toward debt payments. Keeping track of this ratio can help you understand monthly financial pressure.";
+        return "A significant portion of your income is going toward debt payments. Tracking this ratio can help you understand monthly financial pressure.";
 
     }
 
