@@ -7,7 +7,7 @@
 
     <title>Accounting Workspace | Finance Lab</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
 
     <style>
 
@@ -18,13 +18,13 @@
         }
 
         .accounting-header {
-            max-width: 750px;
-            margin-bottom: 40px;
+            max-width: 760px;
+            margin-bottom: 45px;
         }
 
         .accounting-header h1 {
             color: #0b1220;
-            font-size: clamp(40px, 5vw, 60px);
+            font-size: clamp(42px, 5.5vw, 64px);
             line-height: 1.05;
         }
 
@@ -33,116 +33,177 @@
         }
 
         .accounting-header p {
-            margin-top: 18px;
+            margin-top: 20px;
+            color: #697386;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .accounting-card {
+            padding: 32px;
+            background: #ffffff;
+            border: 1px solid #e4e2dc;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(11,18,32,0.06);
+        }
+
+        .accounting-label {
+            color: #5b8def;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+        }
+
+        .accounting-card h2 {
+            margin: 10px 0;
+            color: #0b1220;
+            font-size: 28px;
+        }
+
+        .accounting-description {
+            margin-bottom: 28px;
             color: #697386;
             line-height: 1.7;
         }
 
-        .workspace-box {
-            background: #ffffff;
-            border: 1px solid #e4e2dc;
-            border-radius: 18px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(11,18,32,0.06);
+        .accounting-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
 
-        .workspace-title {
-            margin-bottom: 25px;
-            color: #0b1220;
+        .accounting-table th,
+        .accounting-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e4e2dc;
         }
 
-        .journal-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr auto;
-            gap: 12px;
-            align-items: end;
-        }
-
-        .journal-form label {
-            display: block;
-            margin-bottom: 7px;
+        .accounting-table th {
+            background: #f6f7f9;
             color: #0b1220;
             font-size: 13px;
-            font-weight: 700;
         }
 
-        .journal-form input,
-        .journal-form select {
+        .accounting-table td {
+            color: #596273;
+            font-size: 14px;
+        }
+
+        .accounting-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .accounting-form input,
+        .accounting-form select {
             width: 100%;
             box-sizing: border-box;
-            padding: 12px;
+            padding: 13px;
             border: 1px solid #d3d8e1;
-            border-radius: 9px;
+            border-radius: 10px;
             font-family: inherit;
         }
 
-        .add-entry {
-            min-height: 43px;
-            padding: 0 18px;
+        .accounting-button {
             border: none;
-            border-radius: 9px;
+            border-radius: 10px;
+            padding: 13px 20px;
             background: #0b1220;
             color: white;
             font-weight: 700;
             cursor: pointer;
         }
 
-        .journal-table {
-            width: 100%;
-            border-collapse: collapse;
+        .accounting-button:hover {
+            opacity: 0.9;
+        }
+
+        .accounting-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
             margin-top: 30px;
         }
 
-        .journal-table th,
-        .journal-table td {
-            padding: 13px;
-            text-align: left;
-            border-bottom: 1px solid #e4e2dc;
+        .summary-box {
+            padding: 22px;
+            border: 1px solid #e4e2dc;
+            border-radius: 14px;
+            background: #fafafa;
         }
 
-        .journal-table th {
-            background: #f6f7f9;
-            color: #0b1220;
+        .summary-box span {
+            display: block;
+            color: #697386;
             font-size: 13px;
+            margin-bottom: 8px;
         }
 
-        .journal-table td {
+        .summary-box strong {
+            color: #0b1220;
+            font-size: 24px;
+        }
+
+        .balance-message {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .balance-message.success {
+            display: block;
+            background: #edf9f2;
+            border: 1px solid #c9ead7;
+        }
+
+        .balance-message.warning {
+            display: block;
+            background: #fff8ed;
+            border: 1px solid #f0d7a8;
+        }
+
+        .balance-message h3 {
+            margin-bottom: 8px;
+            color: #0b1220;
+        }
+
+        .balance-message p {
             color: #596273;
+            line-height: 1.6;
             font-size: 14px;
         }
 
-        .empty-message {
-            margin-top: 25px;
-            padding: 20px;
-            background: #f8f9fb;
-            border-radius: 10px;
-            color: #697386;
-            text-align: center;
-        }
-
-        @media (max-width: 850px) {
-
-            .journal-form {
-                grid-template-columns: 1fr 1fr;
-            }
-
-        }
-
-        @media (max-width: 600px) {
+        @media (max-width: 750px) {
 
             .accounting-page {
                 padding: 50px 16px 75px;
             }
 
-            .workspace-box {
+            .accounting-header h1 {
+                font-size: 38px;
+            }
+
+            .accounting-card {
                 padding: 20px 16px;
             }
 
-            .journal-form {
+            .accounting-card h2 {
+                font-size: 23px;
+            }
+
+            .accounting-form {
                 grid-template-columns: 1fr;
             }
 
-            .journal-table {
+            .accounting-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .accounting-table {
                 display: block;
                 overflow-x: auto;
                 white-space: nowrap;
@@ -166,14 +227,33 @@
 
     <nav>
 
-        <a href="index.html">Home</a>
-        <a href="tools.html">Tools</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="learn.html">Learn</a>
-        <a href="audit.html">Audit</a>
-        <a href="accounting.html">Accounting</a>
-        <a href="quiz.html">Challenge</a>
-        <a href="health.html">Health</a>
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="tools.html">
+            Tools
+        </a>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="learn.html">
+            Learn
+        </a>
+
+        <a href="audit.html">
+            Audit
+        </a>
+
+        <a href="quiz.html">
+            Challenge
+        </a>
+
+        <a href="health.html">
+            Health
+        </a>
 
     </nav>
 
@@ -190,113 +270,138 @@
         </p>
 
         <h1>
-            Build your accounts
-            <span>step by step.</span>
+            From Journal
+            <span>to financial statements.</span>
         </h1>
 
         <p>
-            Record journal entries and build a simple
-            accounting workflow from transactions to statements.
+            Record simple transactions and see how accounting
+            information moves from journal entries toward a
+            balanced position.
         </p>
 
     </section>
 
 
-    <section class="workspace-box">
+    <section class="accounting-card">
 
-        <h2 class="workspace-title">
-            Journal
+        <span class="accounting-label">
+            JOURNAL
+        </span>
+
+        <h2>
+            Record a transaction
         </h2>
 
-
-        <div class="journal-form">
-
-
-            <div>
-
-                <label for="date">
-                    Date
-                </label>
-
-                <input
-                    type="date"
-                    id="date"
-                >
-
-            </div>
+        <p class="accounting-description">
+            Add a basic journal entry. The workspace will
+            calculate total debits and credits.
+        </p>
 
 
-            <div>
+        <div class="accounting-form">
 
-                <label for="account">
-                    Account
-                </label>
+            <input
+                type="text"
+                id="account"
+                placeholder="Account name"
+            >
 
-                <input
-                    type="text"
-                    id="account"
-                    placeholder="Cash"
-                >
+            <select id="entryType">
 
-            </div>
+                <option value="debit">
+                    Debit
+                </option>
 
+                <option value="credit">
+                    Credit
+                </option>
 
-            <div>
+            </select>
 
-                <label for="type">
-                    Entry Type
-                </label>
-
-                <select id="type">
-
-                    <option value="Debit">
-                        Debit
-                    </option>
-
-                    <option value="Credit">
-                        Credit
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div>
-
-                <label for="amount">
-                    Amount
-                </label>
-
-                <input
-                    type="number"
-                    id="amount"
-                    placeholder="5000"
-                    min="0"
-                >
-
-            </div>
-
+            <input
+                type="number"
+                id="amount"
+                placeholder="Amount"
+                min="0"
+            >
 
             <button
-                class="add-entry"
-                onclick="addJournalEntry()"
+                class="accounting-button"
+                onclick="addEntry()"
             >
-                Add Entry
+                Add
             </button>
-
 
         </div>
 
 
-        <div id="journalArea">
+        <table class="accounting-table">
 
-            <div class="empty-message">
-                No journal entries yet. Add your first transaction above.
+            <thead>
+
+                <tr>
+                    <th>
+                        Account
+                    </th>
+
+                    <th>
+                        Debit
+                    </th>
+
+                    <th>
+                        Credit
+                    </th>
+                </tr>
+
+            </thead>
+
+            <tbody id="journalBody">
+            </tbody>
+
+        </table>
+
+
+        <div class="accounting-summary">
+
+            <div class="summary-box">
+
+                <span>
+                    Total Debit
+                </span>
+
+                <strong id="totalDebit">
+                    ₹0
+                </strong>
+
+            </div>
+
+
+            <div class="summary-box">
+
+                <span>
+                    Total Credit
+                </span>
+
+                <strong id="totalCredit">
+                    ₹0
+                </strong>
+
             </div>
 
         </div>
 
+
+        <div
+            id="balanceMessage"
+            class="balance-message"
+        >
+
+            <h3 id="balanceTitle"></h3>
+
+            <p id="balanceText"></p>
+
+        </div>
 
     </section>
 
@@ -304,27 +409,60 @@
 </main>
 
 
-<footer>
+<footer class="minimal-footer">
 
-    <div class="footer-inner">
+    <div class="minimal-footer-main">
 
-        <div>
+        <div class="minimal-brand">
 
-            <div class="logo footer-logo">
+            <div class="minimal-logo">
                 Finance Lab
             </div>
 
             <p>
-                Practical finance tools for smarter decisions.
+                Smarter tools for clearer financial thinking.
             </p>
+
+        </div>
+
+
+        <div class="minimal-links">
+
+            <a href="tools.html">
+                Tools
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="learn.html">
+                Learn
+            </a>
+
+            <a href="audit.html">
+                Audit
+            </a>
+
+            <a href="quiz.html">
+                Challenge
+            </a>
 
         </div>
 
     </div>
 
 
-    <div class="footer-bottom">
-        © 2026 Finance Lab
+    <div class="minimal-footer-bottom">
+
+        <span>
+            © 2026 Finance Lab
+        </span>
+
+        <span>
+            Built for practical financial learning.
+        </span>
+
     </div>
 
 </footer>
@@ -332,158 +470,147 @@
 
 <script>
 
-let journalEntries = [];
+let totalDebit = 0;
+let totalCredit = 0;
 
 
-function addJournalEntry() {
-
-    const date =
-        document.getElementById("date").value;
+function addEntry() {
 
     const account =
         document.getElementById("account").value.trim();
 
     const type =
-        document.getElementById("type").value;
+        document.getElementById("entryType").value;
 
     const amount =
         Number(document.getElementById("amount").value);
 
 
     if (
-        !date ||
-        !account ||
-        !amount ||
+        account === "" ||
+        !Number.isFinite(amount) ||
         amount <= 0
     ) {
 
-        alert(
-            "Please complete all fields with a valid amount."
-        );
+        alert("Please enter a valid account and amount.");
 
         return;
     }
 
 
-    journalEntries.push({
+    const row =
+        document.createElement("tr");
 
-        date: date,
 
-        account: account,
+    const accountCell =
+        document.createElement("td");
 
-        type: type,
+    accountCell.textContent =
+        account;
 
-        amount: amount
 
-    });
+    const debitCell =
+        document.createElement("td");
+
+    const creditCell =
+        document.createElement("td");
+
+
+    if (type === "debit") {
+
+        debitCell.textContent =
+            "₹" + amount.toFixed(2);
+
+        creditCell.textContent =
+            "—";
+
+        totalDebit += amount;
+
+    } else {
+
+        debitCell.textContent =
+            "—";
+
+        creditCell.textContent =
+            "₹" + amount.toFixed(2);
+
+        totalCredit += amount;
+
+    }
+
+
+    row.appendChild(accountCell);
+
+    row.appendChild(debitCell);
+
+    row.appendChild(creditCell);
+
+
+    document
+        .getElementById("journalBody")
+        .appendChild(row);
+
+
+    document
+        .getElementById("totalDebit")
+        .textContent =
+        "₹" + totalDebit.toFixed(2);
+
+
+    document
+        .getElementById("totalCredit")
+        .textContent =
+        "₹" + totalCredit.toFixed(2);
+
+
+    checkBalance();
 
 
     document.getElementById("account").value = "";
 
     document.getElementById("amount").value = "";
 
-
-    renderJournal();
-
 }
 
 
-function renderJournal() {
+function checkBalance() {
 
-    const area =
-        document.getElementById("journalArea");
+    const box =
+        document.getElementById("balanceMessage");
+
+    const title =
+        document.getElementById("balanceTitle");
+
+    const text =
+        document.getElementById("balanceText");
 
 
-    if (journalEntries.length === 0) {
+    box.style.display = "block";
 
-        area.innerHTML = `
 
-            <div class="empty-message">
+    if (totalDebit === totalCredit) {
 
-                No journal entries yet.
-                Add your first transaction above.
+        box.className =
+            "balance-message success";
 
-            </div>
+        title.textContent =
+            "✓ Journal is balanced.";
 
-        `;
+        text.textContent =
+            "Total debit and total credit are equal. The entry is ready for the next accounting stage.";
 
-        return;
+    } else {
+
+        box.className =
+            "balance-message warning";
+
+        title.textContent =
+            "Review the journal.";
+
+        text.textContent =
+            "Total debit and credit are currently different. A balanced journal should have equal debit and credit totals.";
 
     }
-
-
-    let rows = "";
-
-
-    journalEntries.forEach(
-        function(entry, index) {
-
-            rows += `
-
-                <tr>
-
-                    <td>
-                        ${entry.date}
-                    </td>
-
-                    <td>
-                        ${entry.account}
-                    </td>
-
-                    <td>
-                        ${entry.type}
-                    </td>
-
-                    <td>
-                        ₹${entry.amount.toFixed(2)}
-                    </td>
-
-                </tr>
-
-            `;
-
-        }
-    );
-
-
-    area.innerHTML = `
-
-        <table class="journal-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>
-                        Date
-                    </th>
-
-                    <th>
-                        Account
-                    </th>
-
-                    <th>
-                        Type
-                    </th>
-
-                    <th>
-                        Amount
-                    </th>
-
-                </tr>
-
-            </thead>
-
-
-            <tbody>
-
-                ${rows}
-
-            </tbody>
-
-        </table>
-
-    `;
 
 }
 
