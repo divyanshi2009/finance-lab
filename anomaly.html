@@ -35,12 +35,10 @@
         .anomaly-header p {
             margin-top: 20px;
             color: #697386;
-            font-size: 16px;
             line-height: 1.7;
         }
 
         .anomaly-card {
-            max-width: 800px;
             padding: 32px;
             background: #ffffff;
             border: 1px solid #e4e2dc;
@@ -62,36 +60,50 @@
         }
 
         .anomaly-description {
-            margin-bottom: 28px;
             color: #697386;
             line-height: 1.7;
+            margin-bottom: 25px;
         }
 
-        .anomaly-form {
+        .transaction-list {
             display: grid;
-            gap: 18px;
+            gap: 12px;
         }
 
-        .anomaly-form label {
+        .transaction-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            border: 1px solid #e4e2dc;
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        .transaction-row span {
+            color: #697386;
+            font-size: 13px;
+        }
+
+        .transaction-row strong {
             color: #0b1220;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 15px;
         }
 
-        .anomaly-form input {
+        .transaction-row input {
             width: 100%;
             box-sizing: border-box;
-            margin-top: 8px;
-            padding: 14px;
+            padding: 11px;
             border: 1px solid #d3d8e1;
-            border-radius: 10px;
-            font-size: 15px;
+            border-radius: 8px;
             font-family: inherit;
         }
 
         .anomaly-button {
             width: 100%;
-            min-height: 50px;
+            margin-top: 25px;
+            padding: 15px;
             border: none;
             border-radius: 10px;
             background: #0b1220;
@@ -111,12 +123,12 @@
             border-radius: 12px;
         }
 
-        .anomaly-result.flagged {
+        .anomaly-result.warning {
             background: #fff8ed;
             border: 1px solid #f0d7a8;
         }
 
-        .anomaly-result.normal {
+        .anomaly-result.safe {
             background: #edf9f2;
             border: 1px solid #c9ead7;
         }
@@ -143,11 +155,16 @@
             }
 
             .anomaly-card {
-                padding: 22px 17px;
+                padding: 22px 16px;
             }
 
             .anomaly-card h2 {
                 font-size: 23px;
+            }
+
+            .transaction-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
             }
 
         }
@@ -168,33 +185,13 @@
 
     <nav>
 
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="tools.html">
-            Tools
-        </a>
-
-        <a href="dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="learn.html">
-            Learn
-        </a>
-
-        <a href="audit.html">
-            Audit
-        </a>
-
-        <a href="quiz.html">
-            Challenge
-        </a>
-
-        <a href="health.html">
-            Health
-        </a>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="audit.html">Audit</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
 
     </nav>
 
@@ -212,12 +209,13 @@
 
         <h1>
             Find unusual
-            <span>transactions.</span>
+            <span>financial patterns.</span>
         </h1>
 
         <p>
-            Enter a transaction amount and compare it with the
-            company's normal transaction range.
+            Enter transaction amounts and let Finance Lab
+            compare them to the normal pattern and flag
+            entries that deserve a closer look.
         </p>
 
     </section>
@@ -230,39 +228,126 @@
         </span>
 
         <h2>
-            Does this transaction need attention?
+            Review the transactions
         </h2>
 
         <p class="anomaly-description">
-            For this simple analysis, transactions above
-            ₹1,00,000 will be flagged for additional review.
+            Add five transaction amounts. The system will
+            calculate the average and identify unusually
+            large transactions.
         </p>
 
 
-        <div class="anomaly-form">
+        <div class="transaction-list">
 
-            <label for="transactionAmount">
+            <div class="transaction-row">
 
-                Transaction Amount
+                <span>
+                    Transaction 01
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
 
                 <input
                     type="number"
-                    id="transactionAmount"
-                    placeholder="Example: 275000"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
                     min="0"
                 >
 
-            </label>
+            </div>
 
 
-            <button
-                class="anomaly-button"
-                onclick="detectAnomaly()"
-            >
-                Analyse Transaction
-            </button>
+            <div class="transaction-row">
+
+                <span>
+                    Transaction 02
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
+
+                <input
+                    type="number"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="transaction-row">
+
+                <span>
+                    Transaction 03
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
+
+                <input
+                    type="number"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="transaction-row">
+
+                <span>
+                    Transaction 04
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
+
+                <input
+                    type="number"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="transaction-row">
+
+                <span>
+                    Transaction 05
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
+
+                <input
+                    type="number"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
+                    min="0"
+                >
+
+            </div>
 
         </div>
+
+
+        <button
+            class="anomaly-button"
+            onclick="detectAnomaly()"
+        >
+            Detect Anomalies
+        </button>
 
 
         <div
@@ -345,8 +430,24 @@
 
 function detectAnomaly() {
 
-    const input =
-        document.getElementById("transactionAmount");
+    const inputs =
+        document.querySelectorAll(".transaction-input");
+
+    const amounts = [];
+
+    inputs.forEach(function(input) {
+
+        const value = Number(input.value);
+
+        if (
+            Number.isFinite(value) &&
+            value > 0
+        ) {
+            amounts.push(value);
+        }
+
+    });
+
 
     const result =
         document.getElementById("anomalyResult");
@@ -358,55 +459,70 @@ function detectAnomaly() {
         document.getElementById("anomalyText");
 
 
-    const amount =
-        Number(input.value);
-
-
-    if (
-        input.value.trim() === "" ||
-        !Number.isFinite(amount) ||
-        amount < 0
-    ) {
+    if (amounts.length < 3) {
 
         result.style.display = "block";
-
-        result.className =
-            "anomaly-result flagged";
+        result.className = "anomaly-result warning";
 
         title.textContent =
-            "Enter a valid amount.";
+            "Add at least 3 transactions.";
 
         text.textContent =
-            "Please enter the transaction amount before analysing it.";
+            "The system needs a few transactions to identify a meaningful pattern.";
 
         return;
     }
 
 
+    const total =
+        amounts.reduce(
+            (sum, amount) => sum + amount,
+            0
+        );
+
+
+    const average =
+        total / amounts.length;
+
+
+    const threshold =
+        average * 2;
+
+
+    const anomalies =
+        amounts.filter(
+            amount => amount > threshold
+        );
+
+
     result.style.display = "block";
 
 
-    if (amount > 100000) {
+    if (anomalies.length > 0) {
 
         result.className =
-            "anomaly-result flagged";
+            "anomaly-result warning";
 
         title.textContent =
             "⚠ Potential anomaly detected.";
 
         text.textContent =
-            "This transaction is above the review threshold of ₹1,00,000. It may require additional supporting documents or investigation. A flagged transaction does not automatically mean fraud.";
+            "The system found " +
+            anomalies.length +
+            " transaction(s) that are more than twice the calculated average of ₹" +
+            average.toFixed(2) +
+            ". These transactions may deserve additional review and supporting evidence.";
 
     } else {
 
         result.className =
-            "anomaly-result normal";
+            "anomaly-result safe";
 
         title.textContent =
             "✓ No major anomaly detected.";
 
         text.textContent =
-            "This transaction is within the normal review range. It may not require additional investigation based on amount alone.";
+            "The entered transactions do not contain an amount that is more than twice the calculated average. This does not prove that every transaction is correct, but no major amount-based anomaly was detected.";
 
     }
 
