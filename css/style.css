@@ -1004,6 +1004,32 @@ body {
     max-width: 650px;
     margin-bottom: 40px;
 }
+.features-section {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    padding: 80px 30px !important;
+}
+
+.features-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+}
+
+.feature-card {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: white !important;
+    min-height: 200px !important;
+    padding: 25px !important;
+    border: 1px solid #ddd !important;
+}
+
 
 .features-intro h2 {
     margin: 10px 0 15px;
@@ -1064,6 +1090,7 @@ body {
 
 .features-grid .feature-icon {
     font-size: 28px;
+
     margin-bottom: 20px;
 }
 
