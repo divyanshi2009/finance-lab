@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Evidence & Investigation | Finance Lab</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+
+        .evidence-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 70px 30px 100px;
+        }
+
+        .evidence-header {
+            max-width: 760px;
+            margin-bottom: 45px;
+        }
+
+        .evidence-header h1 {
+            color: #0b1220;
+            font-size: clamp(42px, 5.5vw, 64px);
+            line-height: 1.05;
+        }
+
+        .evidence-header h1 span {
+            color: #5b8def;
+        }
+
+        .evidence-header p {
+            margin-top: 20px;
+            color: #697386;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .investigation-card {
+            padding: 32px;
+            background: #ffffff;
+            border: 1px solid #e4e2dc;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(11,18,32,0.06);
+        }
+
+        .case-label {
+            color: #5b8def;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+        }
+
+        .investigation-card h2 {
+            margin: 10px 0;
+            color: #0b1220;
+            font-size: 28px;
+        }
+
+        .case-description {
+            margin-bottom: 28px;
+            color: #697386;
+            line-height: 1.7;
+        }
+
+        .evidence-list {
+            display: grid;
+            gap: 14px;
+        }
+
+        .evidence-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 17px;
+            border: 1px solid #e4e2dc;
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        .evidence-item input {
+            width: 18px;
+            height: 18px;
+            accent-color: #5b8def;
+        }
+
+        .evidence-info strong {
+            display: block;
+            color: #0b1220;
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .evidence-info span {
+            color: #697386;
+            font-size: 13px;
+        }
+
+        .finding-box {
+            margin-top: 30px;
+        }
+
+        .finding-box label {
+            display: block;
+            margin-bottom: 9px;
+            color: #0b1220;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .finding-box textarea {
+            width: 100%;
+            min-height: 120px;
+            box-sizing: border-box;
+            padding: 14px;
+            resize: vertical;
+            border: 1px solid #d3d8e1;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .investigation-button {
+            width: 100%;
+            min-height: 50px;
+            margin-top: 22px;
+            border: none;
+            border-radius: 10px;
+            background: #0b1220;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .investigation-button:hover {
+            opacity: 0.9;
+        }
+
+        .investigation-result {
+            display: none;
+            margin-top: 25px;
+            padding: 22px;
+            border-radius: 12px;
+        }
+
+        .investigation-result.success {
+            background: #edf9f2;
+            border: 1px solid #c9ead7;
+        }
+
+        .investigation-result.warning {
+            background: #fff8ed;
+            border: 1px solid #f0d7a8;
+        }
+
+        .investigation-result h3 {
+            margin-bottom: 8px;
+            color: #0b1220;
+        }
+
+        .investigation-result p {
+            color: #596273;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        @media (max-width: 650px) {
+
+            .evidence-page {
+                padding: 50px 16px 75px;
+            }
+
+            .evidence-header h1 {
+                font-size: 38px;
+            }
+
+            .investigation-card {
+                padding: 22px 17px;
+            }
+
+            .investigation-card h2 {
+                font-size: 23px;
+            }
+
+            .evidence-item {
+                align-items: flex-start;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Finance Lab
+    </a>
+
+    <nav>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="tools.html">
+            Tools
+        </a>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="learn.html">
+            Learn
+        </a>
+
+        <a href="audit.html">
+            Audit
+        </a>
+
+        <a href="quiz.html">
+            Challenge
+        </a>
+
+        <a href="health.html">
+            Health
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="evidence-page">
+
+
+    <section class="evidence-header">
+
+        <p class="eyebrow">
+            EVIDENCE & INVESTIGATION
+        </p>
+
+        <h1>
+            Build an
+            <span>investigation trail.</span>
+        </h1>
+
+        <p>
+            Review available evidence, select the documents
+            that support your investigation and record your
+            final finding.
+        </p>
+
+    </section>
+
+
+    <section class="investigation-card">
+
+        <span class="case-label">
+            CASE 01 • EVIDENCE REVIEW
+        </span>
+
+        <h2>
+            Which evidence would you review?
+        </h2>
+
+        <p class="case-description">
+            A large miscellaneous expense has been flagged.
+            Select the evidence that would help an investigator
+            understand and verify the transaction.
+        </p>
+
+
+        <div class="evidence-list">
+
+
+            <label class="evidence-item">
+
+                <input
+                    type="checkbox"
+                    name="evidence"
+                    value="invoice"
+                >
+
+                <div class="evidence-info">
+
+                    <strong>
+                        Original Invoice
+                    </strong>
+
+                    <span>
+                        Check the amount, supplier and description.
+                    </span>
+
+                </div>
+
+            </label>
+
+
+            <label class="evidence-item">
+
+                <input
+                    type="checkbox"
+                    name="evidence"
+                    value="bank"
+                >
+
+                <div class="evidence-info">
+
+                    <strong>
+                        Bank Statement
+                    </strong>
+
+                    <span>
+                        Verify whether the payment actually occurred.
+                    </span>
+
+                </div>
+
+            </label>
+
+
+            <label class="evidence-item">
+
+                <input
+                    type="checkbox"
+                    name="evidence"
+                    value="approval"
+                >
+
+                <div class="evidence-info">
+
+                    <strong>
+                        Approval Record
+                    </strong>
+
+                    <span>
+                        Check whether the expense was properly authorised.
+                    </span>
+
+                </div>
+
+            </label>
+
+
+            <label class="evidence-item">
+
+                <input
+                    type="checkbox"
+                    name="evidence"
+                    value="ledger"
+                >
+
+                <div class="evidence-info">
+
+                    <strong>
+                        General Ledger Entry
+                    </strong>
+
+                    <span>
+                        Compare the recorded transaction with the accounts.
+                    </span>
+
+                </div>
+
+            </label>
+
+
+        </div>
+
+
+        <div class="finding-box">
+
+            <label for="finding">
+                Investigation Finding
+            </label>
+
+            <textarea
+                id="finding"
+                placeholder="Write what you found and what should be investigated further..."
+            ></textarea>
+
+        </div>
+
+
+        <button
+            class="investigation-button"
+            onclick="submitInvestigation()"
+        >
+            Record Investigation
+        </button>
+
+
+        <div
+            id="investigationResult"
+            class="investigation-result"
+        >
+
+            <h3 id="resultTitle"></h3>
+
+            <p id="resultText"></p>
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<footer class="minimal-footer">
+
+    <div class="minimal-footer-main">
+
+        <div class="minimal-brand">
+
+            <div class="minimal-logo">
+                Finance Lab
+            </div>
+
+            <p>
+                Smarter tools for clearer financial thinking.
+            </p>
+
+        </div>
+
+
+        <div class="minimal-links">
+
+            <a href="tools.html">
+                Tools
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="learn.html">
+                Learn
+            </a>
+
+            <a href="audit.html">
+                Audit
+            </a>
+
+            <a href="quiz.html">
+                Challenge
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="minimal-footer-bottom">
+
+        <span>
+            © 2026 Finance Lab
+        </span>
+
+        <span>
+            Built for practical financial learning.
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+function submitInvestigation() {
+
+    const selected =
+        document.querySelectorAll(
+            'input[name="evidence"]:checked'
+        );
+
+    const finding =
+        document.getElementById("finding").value.trim();
+
+    const result =
+        document.getElementById("investigationResult");
+
+    const title =
+        document.getElementById("resultTitle");
+
+    const text =
+        document.getElementById("resultText");
+
+
+    if (selected.length === 0) {
+
+        result.style.display = "block";
+        result.className =
+            "investigation-result warning";
+
+        title.textContent =
+            "Select some evidence first.";
+
+        text.textContent =
+            "Choose the documents you would review to verify the flagged transaction.";
+
+        return;
+    }
+
+
+    if (finding === "") {
+
+        result.style.display = "block";
+        result.className =
+            "investigation-result warning";
+
+        title.textContent =
+            "Add your investigation finding.";
+
+        text.textContent =
+            "Record what the selected evidence could help you verify.";
+
+        return;
+    }
+
+
+    result.style.display = "block";
+    result.className =
+        "investigation-result success";
+
+    title.textContent =
+        "✓ Investigation recorded.";
+
+    text.textContent =
+        "You selected " +
+        selected.length +
+        " piece(s) of evidence. Your finding has been recorded as an investigation trail. In a real audit, the next step would be to verify the supporting documents and investigate any inconsistencies.";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
+
