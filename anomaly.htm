@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Anomaly Detection | Finance Lab</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+
+        .anomaly-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 70px 30px 100px;
+        }
+
+        .anomaly-header {
+            max-width: 760px;
+            margin-bottom: 45px;
+        }
+
+        .anomaly-header h1 {
+            color: #0b1220;
+            font-size: clamp(42px, 5.5vw, 64px);
+            line-height: 1.05;
+        }
+
+        .anomaly-header h1 span {
+            color: #5b8def;
+        }
+
+        .anomaly-header p {
+            margin-top: 20px;
+            color: #697386;
+            line-height: 1.7;
+        }
+
+        .anomaly-card {
+            padding: 32px;
+            background: #ffffff;
+            border: 1px solid #e4e2dc;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(11,18,32,0.06);
+        }
+
+        .anomaly-label {
+            color: #5b8def;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+        }
+
+        .anomaly-card h2 {
+            margin: 10px 0;
+            color: #0b1220;
+            font-size: 28px;
+        }
+
+        .anomaly-description {
+            color: #697386;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .transaction-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .transaction-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            border: 1px solid #e4e2dc;
+            border-radius: 12px;
+            background: #fafafa;
+        }
+
+        .transaction-row span {
+            color: #697386;
+            font-size: 13px;
+        }
+
+        .transaction-row strong {
+            color: #0b1220;
+            font-size: 15px;
+        }
+
+        .transaction-row input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 11px;
+            border: 1px solid #d3d8e1;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .anomaly-button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #0b1220;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .anomaly-button:hover {
+            opacity: 0.9;
+        }
+
+        .anomaly-result {
+            display: none;
+            margin-top: 25px;
+            padding: 22px;
+            border-radius: 12px;
+        }
+
+        .anomaly-result.warning {
+            background: #fff8ed;
+            border: 1px solid #f0d7a8;
+        }
+
+        .anomaly-result.safe {
+            background: #edf9f2;
+            border: 1px solid #c9ead7;
+        }
+
+        .anomaly-result h3 {
+            margin-bottom: 8px;
+            color: #0b1220;
+        }
+
+        .anomaly-result p {
+            color: #596273;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
+
+            .anomaly-page {
+                padding: 50px 16px 75px;
+            }
+
+            .anomaly-header h1 {
+                font-size: 38px;
+            }
+
+            .anomaly-card {
+                padding: 22px 16px;
+            }
+
+            .anomaly-card h2 {
+                font-size: 23px;
+            }
+
+            .transaction-row {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Finance Lab
+    </a>
+
+    <nav>
+
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="audit.html">Audit</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
+
+    </nav>
+
+</header>
+
+
+<main class="anomaly-page">
+
+
+    <section class="anomaly-header">
+
+        <p class="eyebrow">
+            ANOMALY DETECTION
+        </p>
+
+        <h1>
+            Find unusual
+            <span>financial patterns.</span>
+        </h1>
+
+        <p>
+            Enter transaction amounts and let Finance Lab
+            compare them to the normal pattern and flag
+            entries that deserve a closer look.
+        </p>
+
+    </section>
+
+
+    <section class="anomaly-card">
+
+        <span class="anomaly-label">
+            TRANSACTION ANALYSIS
+        </span>
+
+        <h2>
+            Review the transactions
+        </h2>
+
+        <p class="anomaly-description">
+            Add five transaction amounts. The system will
+            calculate the average and identify unusually
+            large transactions.
+        </p>
+
+
+        <div class="transaction-list">
+
+            <div class="transaction-row">
+
+                <span>
+                    Transaction 01
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
+
+                <input
+                    type="number"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="transaction-row">
+
+                <span>
+                    Transaction 02
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
+
+                <input
+                    type="number"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="transaction-row">
+
+                <span>
+                    Transaction 03
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
+
+                <input
+                    type="number"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="transaction-row">
+
+                <span>
+                    Transaction 04
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
+
+                <input
+                    type="number"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="transaction-row">
+
+                <span>
+                    Transaction 05
+                </span>
+
+                <strong>
+                    Amount
+                </strong>
+
+                <input
+                    type="number"
+                    class="transaction-input"
+                    placeholder="₹ Amount"
+                    min="0"
+                >
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="anomaly-button"
+            onclick="detectAnomaly()"
+        >
+            Detect Anomalies
+        </button>
+
+
+        <div
+            id="anomalyResult"
+            class="anomaly-result"
+        >
+
+            <h3 id="anomalyTitle"></h3>
+
+            <p id="anomalyText"></p>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<footer class="minimal-footer">
+
+    <div class="minimal-footer-main">
+
+        <div class="minimal-brand">
+
+            <div class="minimal-logo">
+                Finance Lab
+            </div>
+
+            <p>
+                Smarter tools for clearer financial thinking.
+            </p>
+
+        </div>
+
+
+        <div class="minimal-links">
+
+            <a href="tools.html">
+                Tools
+            </a>
+
+            <a href="dashboard.html">
+                Dashboard
+            </a>
+
+            <a href="learn.html">
+                Learn
+            </a>
+
+            <a href="audit.html">
+                Audit
+            </a>
+
+            <a href="quiz.html">
+                Challenge
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="minimal-footer-bottom">
+
+        <span>
+            © 2026 Finance Lab
+        </span>
+
+        <span>
+            Built for practical financial learning.
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+function detectAnomaly() {
+
+    const inputs =
+        document.querySelectorAll(".transaction-input");
+
+    const amounts = [];
+
+    inputs.forEach(function(input) {
+
+        const value = Number(input.value);
+
+        if (
+            Number.isFinite(value) &&
+            value > 0
+        ) {
+            amounts.push(value);
+        }
+
+    });
+
+
+    const result =
+        document.getElementById("anomalyResult");
+
+    const title =
+        document.getElementById("anomalyTitle");
+
+    const text =
+        document.getElementById("anomalyText");
+
+
+    if (amounts.length < 3) {
+
+        result.style.display = "block";
+        result.className = "anomaly-result warning";
+
+        title.textContent =
+            "Add at least 3 transactions.";
+
+        text.textContent =
+            "The system needs a few transactions to identify a meaningful pattern.";
+
+        return;
+    }
+
+
+    const total =
+        amounts.reduce(
+            (sum, amount) => sum + amount,
+            0
+        );
+
+
+    const average =
+        total / amounts.length;
+
+
+    const threshold =
+        average * 2;
+
+
+    const anomalies =
+        amounts.filter(
+            amount => amount > threshold
+        );
+
+
+    result.style.display = "block";
+
+
+    if (anomalies.length > 0) {
+
+        result.className =
+            "anomaly-result warning";
+
+        title.textContent =
+            "⚠ Potential anomaly detected.";
+
+        text.textContent =
+            "The system found " +
+            anomalies.length +
+            " transaction(s) that are more than twice the calculated average of ₹" +
+            average.toFixed(2) +
+            ". These transactions may deserve additional review and supporting evidence.";
+
+    } else {
+
+        result.className =
+            "anomaly-result safe";
+
+        title.textContent =
+            "✓ No major anomaly detected.";
+
+        text.textContent =
+            "The entered transactions do not contain an amount that is more than twice the calculated average. This does not prove that every transaction is correct, but no major amount-based anomaly was detected.";
+
+    }
+
+}
+
+</script>
+
+
+</body>
+
+</html>
