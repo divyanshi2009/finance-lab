@@ -888,3 +888,50 @@ footer {
         line-height: 1.7;
     }
 }
+/* FINAL MOBILE LEARN FIX */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.learning-content {
+    width: 100%;
+    max-width: 1160px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.learning-content article {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media (max-width: 600px) {
+
+    .learning-content {
+        width: 100%;
+        max-width: 100%;
+        padding-left: 16px;
+        padding-right: 16px;
+        overflow: hidden;
+    }
+
+    .learning-content article {
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 24px 18px;
+        overflow: hidden;
+    }
+
+    .learning-content article h2,
+    .learning-content article p {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+}
