@@ -7,7 +7,96 @@
 
     <title>Learn Finance | Finance Lab</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+        /* LEARNING CONTENT */
+
+        .learning-content {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 20px 30px 100px;
+        }
+
+        .learning-content article {
+            margin: 70px 0;
+            padding: 42px;
+            background: #ffffff;
+            border: 1px solid #e4e2dc;
+            border-radius: 18px;
+            box-shadow: 0 12px 30px rgba(11, 18, 32, 0.07);
+            scroll-margin-top: 90px;
+        }
+
+        .learning-content article:first-child {
+            margin-top: 25px;
+        }
+
+        .learning-content article h2 {
+            margin: 12px 0 16px;
+            color: #0b1220;
+            font-size: 32px;
+            line-height: 1.2;
+        }
+
+        .learning-content article > p:not(.eyebrow) {
+            max-width: 760px;
+            color: #697386;
+            font-size: 16px;
+            line-height: 1.75;
+        }
+
+        .learning-example {
+            margin-top: 22px;
+            padding: 18px 20px;
+            background: #f4f7ff;
+            border: 1px solid #dce5fb;
+            border-radius: 11px;
+            color: #26344d;
+            line-height: 1.8;
+            font-weight: 600;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .learning-content {
+                width: 100%;
+                padding: 15px 16px 80px;
+            }
+
+            .learning-content article {
+                width: 100%;
+                margin: 45px 0;
+                padding: 25px 20px;
+                border-radius: 16px;
+                scroll-margin-top: 75px;
+            }
+
+            .learning-content article:first-child {
+                margin-top: 20px;
+            }
+
+            .learning-content article h2 {
+                margin: 10px 0 14px;
+                font-size: 27px;
+                line-height: 1.25;
+            }
+
+            .learning-content article > p:not(.eyebrow) {
+                font-size: 14px;
+                line-height: 1.7;
+            }
+
+            .learning-example {
+                margin-top: 18px;
+                padding: 15px;
+                font-size: 13px;
+                line-height: 1.7;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -18,19 +107,21 @@
         Finance Lab
     </a>
 
-   
-<nav>
-    <a href="index.html">Home</a>
-    <a href="tools.html">Tools</a>
-    <a href="dashboard.html">Dashboard</a>
-    <a href="learn.html">Learn</a>
-    <a href="quiz.html">Challenge</a>
-    <a href="health.html">Health</a>
-</nav>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html" class="active">Learn</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
+    </nav>
+
 </header>
 
 
 <main>
+
+    <!-- PAGE HEADER -->
 
     <section class="tools-page-header">
 
@@ -51,10 +142,11 @@
     </section>
 
 
+    <!-- LEARNING CARDS -->
+
     <section class="all-tools-section">
 
         <div class="all-tools-grid">
-
 
             <div class="tool-card">
 
@@ -168,16 +260,22 @@
     </section>
 
 
-    <!-- CONCEPTS -->
+    <!-- LEARNING CONTENT -->
 
     <section class="learning-content">
 
 
+        <!-- REVENUE -->
+
         <article id="revenue">
 
-            <p class="eyebrow">01 • REVENUE VS PROFIT</p>
+            <p class="eyebrow">
+                01 • REVENUE VS PROFIT
+            </p>
 
-            <h2>Revenue is not profit.</h2>
+            <h2>
+                Revenue is not profit.
+            </h2>
 
             <p>
                 Revenue is the money a business earns from
@@ -186,19 +284,27 @@
             </p>
 
             <div class="learning-example">
+
                 Revenue = ₹1,00,000<br>
                 Expenses = ₹70,000<br>
                 Profit = ₹30,000
+
             </div>
 
         </article>
 
 
+        <!-- PROFIT MARGIN -->
+
         <article id="margin">
 
-            <p class="eyebrow">02 • PROFIT MARGIN</p>
+            <p class="eyebrow">
+                02 • PROFIT MARGIN
+            </p>
 
-            <h2>How much of your revenue becomes profit?</h2>
+            <h2>
+                How much of your revenue becomes profit?
+            </h2>
 
             <p>
                 Profit margin shows profit as a percentage
@@ -206,17 +312,25 @@
             </p>
 
             <div class="learning-example">
+
                 Profit Margin = Profit ÷ Revenue × 100
+
             </div>
 
         </article>
 
 
+        <!-- ASSETS -->
+
         <article id="assets">
 
-            <p class="eyebrow">03 • ASSETS & LIABILITIES</p>
+            <p class="eyebrow">
+                03 • ASSETS & LIABILITIES
+            </p>
 
-            <h2>What you own vs what you owe.</h2>
+            <h2>
+                What you own vs what you owe.
+            </h2>
 
             <p>
                 Assets are resources with value, such as cash,
@@ -227,11 +341,17 @@
         </article>
 
 
+        <!-- COMPOUND GROWTH -->
+
         <article id="compound">
 
-            <p class="eyebrow">04 • COMPOUND GROWTH</p>
+            <p class="eyebrow">
+                04 • COMPOUND GROWTH
+            </p>
 
-            <h2>Growth can build on previous growth.</h2>
+            <h2>
+                Growth can build on previous growth.
+            </h2>
 
             <p>
                 With compounding, returns can themselves earn
@@ -242,11 +362,17 @@
         </article>
 
 
+        <!-- BREAK EVEN -->
+
         <article id="breakeven">
 
-            <p class="eyebrow">05 • BREAK-EVEN</p>
+            <p class="eyebrow">
+                05 • BREAK-EVEN
+            </p>
 
-            <h2>The point where revenue covers costs.</h2>
+            <h2>
+                The point where revenue covers costs.
+            </h2>
 
             <p>
                 At the break-even point, total revenue equals
@@ -257,11 +383,17 @@
         </article>
 
 
+        <!-- GST -->
+
         <article id="gst">
 
-            <p class="eyebrow">06 • GST BASICS</p>
+            <p class="eyebrow">
+                06 • GST BASICS
+            </p>
 
-            <h2>A tax added to eligible goods and services.</h2>
+            <h2>
+                A tax added to eligible goods and services.
+            </h2>
 
             <p>
                 GST is an indirect tax system. The actual rate
@@ -275,6 +407,8 @@
 
 </main>
 
+
+<!-- FOOTER -->
 
 <footer>
 
@@ -305,13 +439,16 @@
 
 
     <div class="footer-bottom">
+
         © 2026 Finance Lab
+
     </div>
 
 </footer>
 
 
-<script src="js/script.js"></script>
+<script src="./js/script.js"></script>
 
 </body>
+
 </html>
