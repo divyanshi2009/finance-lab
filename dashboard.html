@@ -12,24 +12,64 @@
     <style>
 
         /* =========================
-           DASHBOARD VISUALS
+           MAIN DASHBOARD RESULT
         ========================= */
 
-        .visual-box {
+        .dashboard-main-box {
             margin-top: 30px;
-            padding: 28px;
+            padding: 30px;
             background: #ffffff;
             border: 1px solid #e4e2dc;
-            border-radius: 18px;
+            border-radius: 20px;
             box-shadow: 0 15px 35px rgba(11,18,32,0.06);
         }
 
-        .visual-box h3 {
-            margin-bottom: 24px;
+
+        /* =========================
+           OVERVIEW
+        ========================= */
+
+        .overview-title {
+            margin-bottom: 20px;
             color: #0b1220;
+            font-size: 22px;
         }
 
-        /* BARS */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .overview-card {
+            padding: 20px;
+            background: #f8f9fb;
+            border-radius: 14px;
+        }
+
+        .overview-card span {
+            display: block;
+            margin-bottom: 8px;
+            color: #697386;
+            font-size: 13px;
+        }
+
+        .overview-card strong {
+            color: #0b1220;
+            font-size: 20px;
+        }
+
+
+        /* =========================
+           BREAKDOWN
+        ========================= */
+
+        .section-title {
+            margin-top: 35px;
+            margin-bottom: 22px;
+            color: #0b1220;
+            font-size: 20px;
+        }
 
         .bar-item {
             margin-bottom: 22px;
@@ -63,27 +103,31 @@
             height: 100%;
             background: #5b8def;
             border-radius: 20px;
+            transition: width 0.5s ease;
         }
 
-        /* SIMPLE CHART */
 
-        .chart-box {
-            margin-top: 30px;
+        /* =========================
+           CHART
+        ========================= */
+
+        .chart-section {
+            margin-top: 35px;
         }
 
         .chart {
-            height: 220px;
+            height: 230px;
             display: flex;
             align-items: flex-end;
             justify-content: space-around;
-            gap: 25px;
-            padding: 20px 10px 0;
+            gap: 30px;
+            padding: 20px 20px 0;
             border-bottom: 1px solid #dfe3e8;
         }
 
         .chart-column {
             flex: 1;
-            max-width: 100px;
+            max-width: 120px;
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -102,7 +146,8 @@
             width: 55px;
             min-height: 5px;
             background: #5b8def;
-            border-radius: 7px 7px 0 0;
+            border-radius: 8px 8px 0 0;
+            transition: height 0.5s ease;
         }
 
         .chart-label {
@@ -111,26 +156,72 @@
             font-size: 13px;
         }
 
+
+        /* =========================
+           INSIGHT
+        ========================= */
+
+        .dashboard-insight {
+            margin-top: 35px;
+            padding: 22px;
+            background: #f8f9fb;
+            border-radius: 14px;
+        }
+
+        .dashboard-insight h3 {
+            margin-bottom: 10px;
+            color: #0b1220;
+        }
+
+        .dashboard-insight p {
+            color: #596273;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
         @media (max-width: 600px) {
 
-            .visual-box {
-                padding: 22px 17px;
+            .dashboard-main-box {
+                padding: 20px 16px;
+            }
+
+            .overview-grid {
+                grid-template-columns: 1fr;
             }
 
             .chart {
                 gap: 12px;
+                padding-left: 5px;
+                padding-right: 5px;
             }
 
             .chart-bar {
-                width: 40px;
+                width: 42px;
             }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
+
 
 <header class="navbar">
 
@@ -138,20 +229,33 @@
         Finance Lab
     </a>
 
+
     <nav>
+
         <a href="index.html">Home</a>
+
         <a href="tools.html">Tools</a>
+
         <a href="dashboard.html">Dashboard</a>
+
         <a href="learn.html">Learn</a>
+
         <a href="audit.html">Audit</a>
+
         <a href="quiz.html">Challenge</a>
+
         <a href="health.html">Health</a>
+
     </nav>
 
 </header>
 
 
+
 <main class="dashboard-page">
+
+
+    <!-- HEADER -->
 
     <section class="dashboard-header">
 
@@ -159,22 +263,36 @@
             FINANCIAL DASHBOARD
         </p>
 
+
         <h1>
+
             See your finances
-            <span>at a glance.</span>
+
+            <span>
+                at a glance.
+            </span>
+
         </h1>
 
+
         <p>
+
             Enter your monthly numbers to create a
             simple financial snapshot.
+
         </p>
 
     </section>
 
 
+
+    <!-- INPUT -->
+
     <section class="dashboard-input-card">
 
+
         <div class="dashboard-form-grid">
+
 
             <div class="form-group">
 
@@ -191,6 +309,7 @@
                 >
 
             </div>
+
 
 
             <div class="form-group">
@@ -210,6 +329,7 @@
             </div>
 
 
+
             <div class="form-group">
 
                 <label for="savings">
@@ -225,6 +345,7 @@
                 >
 
             </div>
+
 
 
             <div class="form-group">
@@ -243,347 +364,486 @@
 
             </div>
 
+
         </div>
 
 
         <button onclick="generateDashboard()">
+
             Generate Dashboard
+
         </button>
+
 
     </section>
 
+
+
+    <!-- RESULT -->
 
     <section
         id="dashboardResult"
         class="dashboard-results">
     </section>
 
+
 </main>
+
 
 
 <footer>
 
+
     <div class="footer-inner">
+
 
         <div>
 
             <div class="logo footer-logo">
+
                 Finance Lab
+
             </div>
 
+
             <p>
+
                 Practical finance tools for smarter decisions.
+
             </p>
 
         </div>
 
+
     </div>
+
 
 
     <div class="footer-bottom">
+
         © 2026 Finance Lab
+
     </div>
+
 
 </footer>
 
 
+
 <script>
 
+
 function generateDashboard() {
+
+
+    /* =========================
+       INPUTS
+    ========================= */
+
 
     const incomeInput =
         document.getElementById("income").value.trim();
 
+
     const expensesInput =
         document.getElementById("expenses").value.trim();
 
+
     const savingsInput =
         document.getElementById("savings").value.trim();
+
 
     const debtInput =
         document.getElementById("debt").value.trim();
 
 
-    document.getElementById("dashboardResult").innerHTML = "";
+
+    document.getElementById(
+        "dashboardResult"
+    ).innerHTML = "";
 
 
-    /* VALIDATION */
+
+    /* =========================
+       VALIDATION
+    ========================= */
+
 
     if (
+
         incomeInput === "" ||
+
         expensesInput === "" ||
+
         savingsInput === "" ||
+
         debtInput === ""
+
     ) {
 
+
         showDashboardError(
+
             "Missing information",
+
             "Please complete all four fields before generating the dashboard."
+
         );
 
+
         return;
+
     }
 
 
-    const income = Number(incomeInput);
-    const expenses = Number(expensesInput);
-    const savings = Number(savingsInput);
-    const debt = Number(debtInput);
+
+    const income =
+        Number(incomeInput);
+
+
+    const expenses =
+        Number(expensesInput);
+
+
+    const savings =
+        Number(savingsInput);
+
+
+    const debt =
+        Number(debtInput);
+
 
 
     if (
+
         !Number.isFinite(income) ||
+
         !Number.isFinite(expenses) ||
+
         !Number.isFinite(savings) ||
+
         !Number.isFinite(debt)
+
     ) {
 
+
         showDashboardError(
+
             "Invalid input",
+
             "Please enter valid numeric values."
+
         );
 
+
         return;
+
     }
+
 
 
     if (income <= 0) {
 
+
         showDashboardError(
+
             "Invalid income",
+
             "Monthly income must be greater than ₹0."
+
         );
 
+
         return;
+
     }
+
 
 
     if (
+
         expenses < 0 ||
+
         savings < 0 ||
+
         debt < 0
+
     ) {
 
+
         showDashboardError(
+
             "Invalid amount",
+
             "Expenses, savings and debt payments cannot be negative."
+
         );
 
+
         return;
+
     }
 
 
-    /* CALCULATIONS */
+
+    /* =========================
+       CALCULATIONS
+    ========================= */
+
 
     const remaining =
         income - expenses;
 
+
     const savingsRate =
         (savings / income) * 100;
 
+
     const expenseRate =
         (expenses / income) * 100;
+
 
     const debtRate =
         (debt / income) * 100;
 
 
-    /* STATUS */
+
+    /* =========================
+       STATUS
+    ========================= */
+
 
     let status;
+
 
     if (remaining < 0) {
 
         status = "Review Needed";
 
-    } else if (
+    }
+
+    else if (
+
         savingsRate >= 20 &&
+
         debtRate < 30 &&
+
         expenseRate <= 70
+
     ) {
 
         status = "Healthy Balance";
 
-    } else if (
+    }
+
+    else if (
+
         savingsRate < 10 ||
+
         debtRate > 40 ||
+
         expenseRate > 80
+
     ) {
 
         status = "Review Needed";
 
-    } else {
+    }
+
+    else {
 
         status = "Balanced";
+
     }
 
 
-    /* INSIGHT */
+
+    /* =========================
+       INSIGHT
+    ========================= */
+
 
     const message =
         getDashboardMessage(
+
             savingsRate,
+
             expenseRate,
+
             debtRate,
+
             remaining
+
         );
 
 
-    /* BAR VALUES */
+
+    /* =========================
+       BAR VALUES
+    ========================= */
+
 
     const savingsBar =
-        Math.min(Math.max(savingsRate, 0), 100);
+        Math.min(
+
+            Math.max(savingsRate, 0),
+
+            100
+
+        );
+
 
     const expenseBar =
-        Math.min(Math.max(expenseRate, 0), 100);
+        Math.min(
+
+            Math.max(expenseRate, 0),
+
+            100
+
+        );
+
 
     const debtBar =
-        Math.min(Math.max(debtRate, 0), 100);
+        Math.min(
+
+            Math.max(debtRate, 0),
+
+            100
+
+        );
 
 
-    /* CHART */
+
+    /* =========================
+       CHART
+    ========================= */
+
 
     const maxChartValue =
-        Math.max(income, expenses, savings, 1);
+        Math.max(
+
+            income,
+
+            expenses,
+
+            savings,
+
+            1
+
+        );
+
 
     const incomeHeight =
         (income / maxChartValue) * 100;
 
+
     const expenseHeight =
         (expenses / maxChartValue) * 100;
+
 
     const savingsHeight =
         (savings / maxChartValue) * 100;
 
 
-    /* RESULT */
 
-    document.getElementById("dashboardResult").innerHTML = `
+    /* =========================
+       MAIN DASHBOARD BOX
+    ========================= */
 
-        <div class="dashboard-grid">
 
-            <div class="dashboard-stat">
+    document.getElementById(
+        "dashboardResult"
+    ).innerHTML = `
 
-                <span>
-                    Monthly Income
-                </span>
 
-                <strong>
-                    ₹${income.toFixed(2)}
-                </strong>
+        <div class="dashboard-main-box">
+
+
+            <!-- OVERVIEW -->
+
+
+            <h2 class="overview-title">
+
+                Financial Overview
+
+            </h2>
+
+
+            <div class="overview-grid">
+
+
+                <div class="overview-card">
+
+                    <span>
+                        Monthly Income
+                    </span>
+
+                    <strong>
+                        ₹${income.toFixed(2)}
+                    </strong>
+
+                </div>
+
+
+
+                <div class="overview-card">
+
+                    <span>
+                        Monthly Expenses
+                    </span>
+
+                    <strong>
+                        ₹${expenses.toFixed(2)}
+                    </strong>
+
+                </div>
+
+
+
+                <div class="overview-card">
+
+                    <span>
+                        Remaining Balance
+                    </span>
+
+                    <strong>
+                        ₹${Math.max(0, remaining).toFixed(2)}
+                    </strong>
+
+                </div>
+
+
+
+                <div class="overview-card">
+
+                    <span>
+                        Financial Status
+                    </span>
+
+                    <strong>
+                        ${status}
+                    </strong>
+
+                </div>
+
 
             </div>
 
 
-            <div class="dashboard-stat">
 
-                <span>
-                    Monthly Expenses
-                </span>
-
-                <strong>
-                    ₹${expenses.toFixed(2)}
-                </strong>
-
-            </div>
+            <!-- BARS -->
 
 
-            <div class="dashboard-stat">
+            <h2 class="section-title">
 
-                <span>
-                    Remaining Balance
-                </span>
-
-                <strong>
-                    ₹${Math.max(0, remaining).toFixed(2)}
-                </strong>
-
-            </div>
-
-
-            <div class="dashboard-stat">
-
-                <span>
-                    Financial Status
-                </span>
-
-                <strong>
-                    ${status}
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <div class="dashboard-detail-grid">
-
-            <div class="dashboard-detail">
-
-                <span>
-                    Savings Rate
-                </span>
-
-                <strong>
-                    ${savingsRate.toFixed(1)}%
-                </strong>
-
-                <p>
-                    Monthly savings compared
-                    with monthly income.
-                </p>
-
-            </div>
-
-
-            <div class="dashboard-detail">
-
-                <span>
-                    Expense Rate
-                </span>
-
-                <strong>
-                    ${expenseRate.toFixed(1)}%
-                </strong>
-
-                <p>
-                    Monthly expenses compared
-                    with monthly income.
-                </p>
-
-            </div>
-
-
-            <div class="dashboard-detail">
-
-                <span>
-                    Debt Rate
-                </span>
-
-                <strong>
-                    ${debtRate.toFixed(1)}%
-                </strong>
-
-                <p>
-                    Monthly debt payment compared
-                    with monthly income.
-                </p>
-
-            </div>
-
-        </div>
-
-
-        <!-- BARS -->
-
-        <div class="visual-box">
-
-            <h3>
                 Financial Breakdown
-            </h3>
+
+            </h2>
+
 
 
             <div class="bar-item">
+
 
                 <div class="bar-header">
 
@@ -597,19 +857,28 @@ function generateDashboard() {
 
                 </div>
 
+
                 <div class="bar-track">
 
                     <div
+
                         class="bar-fill"
-                        style="width: ${savingsBar}%">
-                    </div>
+
+                        style="
+                            width:${savingsBar}%;
+                        "
+
+                    ></div>
 
                 </div>
+
 
             </div>
 
 
+
             <div class="bar-item">
+
 
                 <div class="bar-header">
 
@@ -623,19 +892,28 @@ function generateDashboard() {
 
                 </div>
 
+
                 <div class="bar-track">
 
                     <div
+
                         class="bar-fill"
-                        style="width: ${expenseBar}%">
-                    </div>
+
+                        style="
+                            width:${expenseBar}%;
+                        "
+
+                    ></div>
 
                 </div>
+
 
             </div>
 
 
+
             <div class="bar-item">
+
 
                 <div class="bar-header">
 
@@ -649,184 +927,315 @@ function generateDashboard() {
 
                 </div>
 
+
                 <div class="bar-track">
 
                     <div
+
                         class="bar-fill"
-                        style="width: ${debtBar}%">
-                    </div>
+
+                        style="
+                            width:${debtBar}%;
+                        "
+
+                    ></div>
 
                 </div>
+
 
             </div>
 
 
-            <!-- SIMPLE CHART -->
 
-            <div class="chart-box">
+            <!-- CHART -->
 
-                <h3>
+
+            <div class="chart-section">
+
+
+                <h2 class="section-title">
+
                     Monthly Comparison
-                </h3>
+
+                </h2>
 
 
                 <div class="chart">
 
+
                     <div class="chart-column">
 
+
                         <span class="chart-value">
+
                             ₹${income.toFixed(0)}
+
                         </span>
 
+
                         <div
+
                             class="chart-bar"
-                            style="height: ${incomeHeight}%">
-                        </div>
+
+                            style="
+                                height:${incomeHeight}%;
+                            "
+
+                        ></div>
+
 
                         <span class="chart-label">
+
                             Income
+
                         </span>
+
 
                     </div>
 
 
+
                     <div class="chart-column">
 
+
                         <span class="chart-value">
+
                             ₹${expenses.toFixed(0)}
+
                         </span>
+
 
                         <div
+
                             class="chart-bar"
-                            style="height: ${expenseHeight}%">
-                        </div>
+
+                            style="
+                                height:${expenseHeight}%;
+                            "
+
+                        ></div>
+
 
                         <span class="chart-label">
+
                             Expenses
+
                         </span>
 
+
                     </div>
+
 
 
                     <div class="chart-column">
 
+
                         <span class="chart-value">
+
                             ₹${savings.toFixed(0)}
+
                         </span>
+
 
                         <div
+
                             class="chart-bar"
-                            style="height: ${savingsHeight}%">
-                        </div>
+
+                            style="
+                                height:${savingsHeight}%;
+                            "
+
+                        ></div>
+
 
                         <span class="chart-label">
+
                             Savings
+
                         </span>
 
+
                     </div>
+
 
                 </div>
 
+
             </div>
 
+
+
+            <!-- INSIGHT -->
+
+
+            <div class="dashboard-insight">
+
+
+                <h3>
+
+                    Dashboard Insight
+
+                </h3>
+
+
+                <p>
+
+                    ${message}
+
+                </p>
+
+
+                <p>
+
+                    This dashboard is an educational snapshot,
+                    not professional financial advice.
+
+                </p>
+
+
+            </div>
+
+
         </div>
 
-
-        <div class="insight-box">
-
-            <h3>
-                Dashboard Insight
-            </h3>
-
-            <p>
-                ${message}
-            </p>
-
-            <p>
-                This dashboard is an educational snapshot,
-                not professional financial advice.
-            </p>
-
-        </div>
 
     `;
+
 }
 
 
-/* DASHBOARD MESSAGE */
+
+/* =========================
+   INSIGHT FUNCTION
+========================= */
+
 
 function getDashboardMessage(
+
     savingsRate,
+
     expenseRate,
+
     debtRate,
+
     remaining
+
 ) {
 
+
     if (remaining < 0) {
+
 
         return "Your expenses are higher than your income. Your first priority may be understanding which expenses are creating the largest monthly pressure.";
 
     }
 
 
+
     if (
+
         savingsRate >= 20 &&
+
         debtRate < 30 &&
+
         expenseRate <= 70
+
     ) {
+
 
         return "Your current numbers show a relatively healthy monthly balance between spending, saving and debt payments.";
 
     }
 
 
+
     if (savingsRate < 10) {
+
 
         return "Your savings rate is relatively low. Reviewing recurring expenses may help create more room for saving.";
 
     }
 
 
+
     if (debtRate > 40) {
+
 
         return "A significant portion of your income is going toward debt payments. Tracking this ratio can help you understand monthly financial pressure.";
 
     }
 
 
+
     if (expenseRate > 80) {
+
 
         return "Most of your income is being used by expenses. Reviewing your largest spending categories may create more flexibility.";
 
     }
 
 
+
     return "Your current numbers show a reasonably balanced monthly position. Continue tracking your income, expenses and savings regularly.";
+
 }
 
 
-/* ERROR */
 
-function showDashboardError(title, message) {
+/* =========================
+   ERROR
+========================= */
 
-    document.getElementById("dashboardResult").innerHTML = `
 
-        <div class="insight-box">
+function showDashboardError(
 
-            <h3>
-                ${title}
-            </h3>
+    title,
 
-            <p>
-                ${message}
-            </p>
+    message
+
+) {
+
+
+    document.getElementById(
+
+        "dashboardResult"
+
+    ).innerHTML = `
+
+
+        <div class="dashboard-main-box">
+
+
+            <div class="dashboard-insight">
+
+
+                <h3>
+
+                    ${title}
+
+                </h3>
+
+
+                <p>
+
+                    ${message}
+
+                </p>
+
+
+            </div>
+
 
         </div>
 
+
     `;
+
 }
 
+
 </script>
+
 
 </body>
 
