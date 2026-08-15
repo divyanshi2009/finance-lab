@@ -66,6 +66,30 @@
             line-height: 1.7;
         }
 
+        /* TRANSACTION */
+
+        .transaction-box {
+            padding: 22px;
+            margin-bottom: 28px;
+            background: #f6f7f9;
+            border-radius: 14px;
+            border: 1px solid #e4e2dc;
+        }
+
+        .transaction-box span {
+            display: block;
+            color: #697386;
+            font-size: 12px;
+            margin-bottom: 7px;
+        }
+
+        .transaction-box strong {
+            color: #0b1220;
+            font-size: 25px;
+        }
+
+        /* EVIDENCE */
+
         .evidence-list {
             display: grid;
             gap: 14px;
@@ -79,12 +103,21 @@
             border: 1px solid #e4e2dc;
             border-radius: 12px;
             background: #fafafa;
+            cursor: pointer;
+        }
+
+        .evidence-item:hover {
+            border-color: #5b8def;
         }
 
         .evidence-item input {
             width: 18px;
             height: 18px;
             accent-color: #5b8def;
+        }
+
+        .evidence-info {
+            flex: 1;
         }
 
         .evidence-info strong {
@@ -99,34 +132,18 @@
             font-size: 13px;
         }
 
-        .finding-box {
-            margin-top: 30px;
-        }
-
-        .finding-box label {
-            display: block;
-            margin-bottom: 9px;
-            color: #0b1220;
+        .evidence-status {
+            font-size: 12px;
             font-weight: 700;
-            font-size: 14px;
+            color: #596273;
         }
 
-        .finding-box textarea {
-            width: 100%;
-            min-height: 120px;
-            box-sizing: border-box;
-            padding: 14px;
-            resize: vertical;
-            border: 1px solid #d3d8e1;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 14px;
-        }
+        /* BUTTON */
 
         .investigation-button {
             width: 100%;
             min-height: 50px;
-            margin-top: 22px;
+            margin-top: 28px;
             border: none;
             border-radius: 10px;
             background: #0b1220;
@@ -139,11 +156,13 @@
             opacity: 0.9;
         }
 
+        /* RESULT */
+
         .investigation-result {
             display: none;
-            margin-top: 25px;
-            padding: 22px;
-            border-radius: 12px;
+            margin-top: 28px;
+            padding: 24px;
+            border-radius: 14px;
         }
 
         .investigation-result.success {
@@ -157,7 +176,7 @@
         }
 
         .investigation-result h3 {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #0b1220;
         }
 
@@ -167,7 +186,60 @@
             font-size: 14px;
         }
 
-        @media (max-width: 650px) {
+        /* CONCLUSION */
+
+        .conclusion-box {
+            display: none;
+            margin-top: 25px;
+        }
+
+        .conclusion-box h3 {
+            margin-bottom: 14px;
+            color: #0b1220;
+        }
+
+        .conclusion-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .conclusion-option {
+            padding: 15px;
+            border: 1px solid #d3d8e1;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #0b1220;
+        }
+
+        .conclusion-option:hover {
+            border-color: #5b8def;
+        }
+
+        .final-result {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f6f7f9;
+            border-radius: 12px;
+        }
+
+        .final-result strong {
+            color: #0b1220;
+        }
+
+        .final-result p {
+            margin-top: 8px;
+            color: #596273;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        @media (max-width: 700px) {
 
             .evidence-page {
                 padding: 50px 16px 75px;
@@ -189,6 +261,14 @@
                 align-items: flex-start;
             }
 
+            .evidence-status {
+                display: none;
+            }
+
+            .conclusion-options {
+                grid-template-columns: 1fr;
+            }
+
         }
 
     </style>
@@ -207,33 +287,13 @@
 
     <nav>
 
-        <a href="index.html">
-            Home
-        </a>
-
-        <a href="tools.html">
-            Tools
-        </a>
-
-        <a href="dashboard.html">
-            Dashboard
-        </a>
-
-        <a href="learn.html">
-            Learn
-        </a>
-
-        <a href="audit.html">
-            Audit
-        </a>
-
-        <a href="quiz.html">
-            Challenge
-        </a>
-
-        <a href="health.html">
-            Health
-        </a>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="audit.html">Audit</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
 
     </nav>
 
@@ -250,14 +310,14 @@
         </p>
 
         <h1>
-            Build an
-            <span>investigation trail.</span>
+            Follow the evidence.
+            <span>Find the gap.</span>
         </h1>
 
         <p>
-            Review available evidence, select the documents
-            that support your investigation and record your
-            final finding.
+            Review the supporting evidence for a flagged
+            transaction and determine whether anything
+            requires further investigation.
         </p>
 
     </section>
@@ -270,15 +330,32 @@
         </span>
 
         <h2>
-            Which evidence would you review?
+            Investigate the flagged transaction
         </h2>
 
         <p class="case-description">
-            A large miscellaneous expense has been flagged.
-            Select the evidence that would help an investigator
-            understand and verify the transaction.
+            An auditor has flagged the transaction below.
+            Select the evidence you would review before
+            reaching a conclusion.
         </p>
 
+
+        <!-- TRANSACTION -->
+
+        <div class="transaction-box">
+
+            <span>
+                FLAGGED TRANSACTION
+            </span>
+
+            <strong>
+                ₹2,75,000 — Miscellaneous Expense
+            </strong>
+
+        </div>
+
+
+        <!-- EVIDENCE -->
 
         <div class="evidence-list">
 
@@ -298,10 +375,14 @@
                     </strong>
 
                     <span>
-                        Check the amount, supplier and description.
+                        Shows supplier, description and amount.
                     </span>
 
                 </div>
+
+                <span class="evidence-status">
+                    AVAILABLE
+                </span>
 
             </label>
 
@@ -321,10 +402,14 @@
                     </strong>
 
                     <span>
-                        Verify whether the payment actually occurred.
+                        Confirms whether the payment was made.
                     </span>
 
                 </div>
+
+                <span class="evidence-status">
+                    AVAILABLE
+                </span>
 
             </label>
 
@@ -344,10 +429,14 @@
                     </strong>
 
                     <span>
-                        Check whether the expense was properly authorised.
+                        Expected authorisation for the expense.
                     </span>
 
                 </div>
+
+                <span class="evidence-status">
+                    MISSING
+                </span>
 
             </label>
 
@@ -363,42 +452,34 @@
                 <div class="evidence-info">
 
                     <strong>
-                        General Ledger Entry
+                        General Ledger
                     </strong>
 
                     <span>
-                        Compare the recorded transaction with the accounts.
+                        Shows how the transaction was recorded.
                     </span>
 
                 </div>
 
+                <span class="evidence-status">
+                    AVAILABLE
+                </span>
+
             </label>
 
-
-        </div>
-
-
-        <div class="finding-box">
-
-            <label for="finding">
-                Investigation Finding
-            </label>
-
-            <textarea
-                id="finding"
-                placeholder="Write what you found and what should be investigated further..."
-            ></textarea>
 
         </div>
 
 
         <button
             class="investigation-button"
-            onclick="submitInvestigation()"
+            onclick="investigate()"
         >
-            Record Investigation
+            Investigate Evidence
         </button>
 
+
+        <!-- RESULT -->
 
         <div
             id="investigationResult"
@@ -408,6 +489,60 @@
             <h3 id="resultTitle"></h3>
 
             <p id="resultText"></p>
+
+        </div>
+
+
+        <!-- CONCLUSION -->
+
+        <div
+            id="conclusionBox"
+            class="conclusion-box"
+        >
+
+            <h3>
+                What is your conclusion?
+            </h3>
+
+
+            <div class="conclusion-options">
+
+                <button
+                    class="conclusion-option"
+                    onclick="chooseConclusion('No issue identified')"
+                >
+                    No issue identified
+                </button>
+
+
+                <button
+                    class="conclusion-option"
+                    onclick="chooseConclusion('Needs supporting evidence')"
+                >
+                    Needs supporting evidence
+                </button>
+
+
+                <button
+                    class="conclusion-option"
+                    onclick="chooseConclusion('Potential anomaly')"
+                >
+                    Potential anomaly
+                </button>
+
+            </div>
+
+
+            <div
+                id="finalResult"
+                class="final-result"
+            >
+
+                <strong id="finalTitle"></strong>
+
+                <p id="finalText"></p>
+
+            </div>
 
         </div>
 
@@ -437,25 +572,11 @@
 
         <div class="minimal-links">
 
-            <a href="tools.html">
-                Tools
-            </a>
-
-            <a href="dashboard.html">
-                Dashboard
-            </a>
-
-            <a href="learn.html">
-                Learn
-            </a>
-
-            <a href="audit.html">
-                Audit
-            </a>
-
-            <a href="quiz.html">
-                Challenge
-            </a>
+            <a href="tools.html">Tools</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="learn.html">Learn</a>
+            <a href="audit.html">Audit</a>
+            <a href="quiz.html">Challenge</a>
 
         </div>
 
@@ -479,15 +600,12 @@
 
 <script>
 
-function submitInvestigation() {
+function investigate() {
 
     const selected =
         document.querySelectorAll(
             'input[name="evidence"]:checked'
         );
-
-    const finding =
-        document.getElementById("finding").value.trim();
 
     const result =
         document.getElementById("investigationResult");
@@ -498,50 +616,120 @@ function submitInvestigation() {
     const text =
         document.getElementById("resultText");
 
+    const conclusion =
+        document.getElementById("conclusionBox");
+
 
     if (selected.length === 0) {
 
         result.style.display = "block";
+
         result.className =
             "investigation-result warning";
 
         title.textContent =
-            "Select some evidence first.";
+            "Select evidence to review.";
 
         text.textContent =
-            "Choose the documents you would review to verify the flagged transaction.";
+            "An investigation should begin by reviewing relevant supporting documents.";
+
+        conclusion.style.display = "none";
 
         return;
     }
 
 
-    if (finding === "") {
+    let selectedEvidence = [];
 
-        result.style.display = "block";
-        result.className =
-            "investigation-result warning";
+    selected.forEach(function(item) {
 
-        title.textContent =
-            "Add your investigation finding.";
+        selectedEvidence.push(item.value);
 
-        text.textContent =
-            "Record what the selected evidence could help you verify.";
-
-        return;
-    }
+    });
 
 
     result.style.display = "block";
-    result.className =
-        "investigation-result success";
 
-    title.textContent =
-        "✓ Investigation recorded.";
 
-    text.textContent =
-        "You selected " +
-        selected.length +
-        " piece(s) of evidence. Your finding has been recorded as an investigation trail. In a real audit, the next step would be to verify the supporting documents and investigate any inconsistencies.";
+    /*
+       IMPORTANT INVESTIGATION LOGIC
+
+       Approval is the missing evidence.
+    */
+
+
+    if (
+        selectedEvidence.includes("approval") &&
+        selectedEvidence.includes("invoice") &&
+        selectedEvidence.includes("bank") &&
+        selectedEvidence.includes("ledger")
+    ) {
+
+        result.className =
+            "investigation-result success";
+
+        title.textContent =
+            "✓ Evidence review complete.";
+
+        text.textContent =
+            "The invoice, bank statement and ledger support the transaction, but the approval record is missing. The transaction cannot be treated as fully supported yet and requires further investigation.";
+
+    } else {
+
+        result.className =
+            "investigation-result warning";
+
+        title.textContent =
+            "Evidence review is incomplete.";
+
+        text.textContent =
+            "Some relevant evidence has not been reviewed. Compare the invoice, bank statement, approval record and ledger before reaching a conclusion.";
+
+    }
+
+
+    conclusion.style.display = "block";
+
+}
+
+
+function chooseConclusion(choice) {
+
+    const finalResult =
+        document.getElementById("finalResult");
+
+    const finalTitle =
+        document.getElementById("finalTitle");
+
+    const finalText =
+        document.getElementById("finalText");
+
+
+    finalResult.style.display = "block";
+
+
+    finalTitle.textContent =
+        "Conclusion: " + choice;
+
+
+    if (choice === "Potential anomaly") {
+
+        finalText.textContent =
+            "The transaction has a potential control or documentation issue because the approval evidence is missing. Further investigation is appropriate.";
+
+    } else if (
+        choice === "Needs supporting evidence"
+    ) {
+
+        finalText.textContent =
+            "The transaction may be valid, but additional supporting evidence is needed before it can be considered fully supported.";
+
+    } else {
+
+        finalText.textContent =
+            "Based on the available information, no immediate issue has been identified. However, proper supporting evidence should still be retained.";
+
+    }
 
 }
 
@@ -551,4 +739,3 @@ function submitInvestigation() {
 </body>
 
 </html>
-
