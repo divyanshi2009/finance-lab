@@ -40,6 +40,7 @@
 
         .audit-case {
             padding: 32px;
+            margin-bottom: 35px;
             background: #ffffff;
             border: 1px solid #e4e2dc;
             border-radius: 18px;
@@ -87,10 +88,6 @@
         .transaction-table td {
             color: #596273;
             font-size: 14px;
-        }
-
-        .transaction-table tr.suspicious {
-            background: #fff8ed;
         }
 
         .transaction-table input[type="radio"] {
@@ -165,6 +162,12 @@
             font-size: 14px;
         }
 
+        .points {
+            margin-top: 10px;
+            font-weight: 700;
+            color: #0b1220;
+        }
+
         @media (max-width: 600px) {
 
             .audit-page {
@@ -228,12 +231,14 @@
         </h1>
 
         <p>
-            Review a small set of transactions, identify the one
-            that looks suspicious, and explain why you selected it.
+            Review transactions, identify potential red flags,
+            and explain your reasoning like an auditor.
         </p>
 
     </section>
 
+
+    <!-- CASE 01 -->
 
     <section class="audit-case">
 
@@ -267,7 +272,7 @@
 
                 <tr>
                     <td>
-                        <input type="radio" name="transaction" value="1">
+                        <input type="radio" name="transaction1" value="1">
                     </td>
                     <td>05 Aug</td>
                     <td>Office Supplies</td>
@@ -276,7 +281,7 @@
 
                 <tr>
                     <td>
-                        <input type="radio" name="transaction" value="2">
+                        <input type="radio" name="transaction1" value="2">
                     </td>
                     <td>11 Aug</td>
                     <td>Computer Equipment</td>
@@ -285,7 +290,7 @@
 
                 <tr>
                     <td>
-                        <input type="radio" name="transaction" value="3">
+                        <input type="radio" name="transaction1" value="3">
                     </td>
                     <td>28 Aug</td>
                     <td>Consulting Expense</td>
@@ -294,7 +299,7 @@
 
                 <tr>
                     <td>
-                        <input type="radio" name="transaction" value="4">
+                        <input type="radio" name="transaction1" value="4">
                     </td>
                     <td>31 Aug</td>
                     <td>Miscellaneous Expense</td>
@@ -308,28 +313,140 @@
 
         <div class="reason-box">
 
-            <label for="reason">
+            <label for="reason1">
                 Why did you choose this transaction?
             </label>
 
             <textarea
-                id="reason"
+                id="reason1"
                 placeholder="Write your reasoning here..."
             ></textarea>
 
         </div>
 
 
-        <button class="audit-button" onclick="checkAudit()">
+        <button class="audit-button" onclick="checkCase1()">
             Submit Investigation
         </button>
 
 
-        <div id="auditResult" class="audit-result">
+        <div id="result1" class="audit-result">
 
-            <h3 id="resultTitle"></h3>
+            <h3 id="title1"></h3>
 
-            <p id="resultText"></p>
+            <p id="text1"></p>
+
+            <div id="points1" class="points"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CASE 02 -->
+
+    <section class="audit-case">
+
+        <span class="case-label">
+            CASE 02 • DUPLICATE PAYMENT REVIEW
+        </span>
+
+        <h2>
+            Can you spot the unusual payment?
+        </h2>
+
+        <p class="case-description">
+            A company made several payments during the month.
+            One transaction may require additional verification.
+            Look carefully at the vendor and amount.
+        </p>
+
+
+        <table class="transaction-table">
+
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Date</th>
+                    <th>Vendor</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>
+                        <input type="radio" name="transaction2" value="1">
+                    </td>
+                    <td>03 Aug</td>
+                    <td>ABC Properties</td>
+                    <td>Office Rent</td>
+                    <td>₹45,000</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="radio" name="transaction2" value="2">
+                    </td>
+                    <td>10 Aug</td>
+                    <td>CloudSoft</td>
+                    <td>Software Subscription</td>
+                    <td>₹12,500</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="radio" name="transaction2" value="3">
+                    </td>
+                    <td>18 Aug</td>
+                    <td>Prime Supplies</td>
+                    <td>Vendor Payment</td>
+                    <td>₹68,000</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="radio" name="transaction2" value="4">
+                    </td>
+                    <td>19 Aug</td>
+                    <td>Prime Supplies</td>
+                    <td>Vendor Payment</td>
+                    <td>₹68,000</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <div class="reason-box">
+
+            <label for="reason2">
+                Why did you choose this transaction?
+            </label>
+
+            <textarea
+                id="reason2"
+                placeholder="Write your reasoning here..."
+            ></textarea>
+
+        </div>
+
+
+        <button class="audit-button" onclick="checkCase2()">
+            Submit Investigation
+        </button>
+
+
+        <div id="result2" class="audit-result">
+
+            <h3 id="title2"></h3>
+
+            <p id="text2"></p>
+
+            <div id="points2" class="points"></div>
 
         </div>
 
@@ -374,17 +491,20 @@
 
 
 <script>
-function checkAudit() {
+
+function checkCase1() {
 
     const selected = document.querySelector(
-        'input[name="transaction"]:checked'
+        'input[name="transaction1"]:checked'
     );
 
-    const reason = document.getElementById("reason").value.trim();
+    const reason = document.getElementById("reason1").value.trim();
 
-    const result = document.getElementById("auditResult");
-    const title = document.getElementById("resultTitle");
-    const text = document.getElementById("resultText");
+    const result = document.getElementById("result1");
+    const title = document.getElementById("title1");
+    const text = document.getElementById("text1");
+    const points = document.getElementById("points1");
+
 
     if (!selected) {
 
@@ -396,8 +516,11 @@ function checkAudit() {
         text.textContent =
             "Choose the transaction you believe requires investigation.";
 
+        points.textContent = "";
+
         return;
     }
+
 
     if (!reason) {
 
@@ -409,38 +532,132 @@ function checkAudit() {
         text.textContent =
             "An auditor should be able to explain why a transaction was selected.";
 
+        points.textContent = "";
+
         return;
     }
 
+
     result.style.display = "block";
+
 
     if (selected.value === "4") {
 
         result.className = "audit-result correct";
 
-        title.textContent = "✓ Good catch — potential red flag.";
+        title.textContent =
+            "✓ Good catch — potential red flag.";
 
         text.textContent =
-            "The ₹2,75,000 miscellaneous expense is unusually large compared " +
-            "with the other transactions and has a broad description. " +
-            "This does not automatically mean fraud, but it is a transaction " +
-            "that deserves additional supporting evidence and investigation.";
+            "The ₹2,75,000 miscellaneous expense is unusually large " +
+            "compared with the other transactions and has a broad description. " +
+            "It deserves additional supporting evidence and investigation.";
+
+        points.textContent =
+            "+10 points — Investigation complete.";
 
     } else {
 
         result.className = "audit-result wrong";
 
-        title.textContent = "Needs another look.";
+        title.textContent =
+            "Good attempt — review the evidence once more.";
 
         text.textContent =
-            "This transaction does not stand out as strongly as the " +
-            "₹2,75,000 miscellaneous expense. Review the amounts and " +
-            "descriptions again and consider which entry would require " +
-            "the most supporting evidence.";
+            "Look at both the amount and the description. " +
+            "Consider which transaction would require the most supporting evidence.";
+
+        points.textContent = "";
 
     }
 
 }
+
+
+function checkCase2() {
+
+    const selected = document.querySelector(
+        'input[name="transaction2"]:checked'
+    );
+
+    const reason = document.getElementById("reason2").value.trim();
+
+    const result = document.getElementById("result2");
+    const title = document.getElementById("title2");
+    const text = document.getElementById("text2");
+    const points = document.getElementById("points2");
+
+
+    if (!selected) {
+
+        result.style.display = "block";
+        result.className = "audit-result wrong";
+
+        title.textContent =
+            "Select a transaction first.";
+
+        text.textContent =
+            "Choose the transaction you believe requires investigation.";
+
+        points.textContent = "";
+
+        return;
+    }
+
+
+    if (!reason) {
+
+        result.style.display = "block";
+        result.className = "audit-result wrong";
+
+        title.textContent =
+            "Add your reasoning.";
+
+        text.textContent =
+            "Explain what made the transaction stand out to you.";
+
+        points.textContent = "";
+
+        return;
+    }
+
+
+    result.style.display = "block";
+
+
+    if (selected.value === "4") {
+
+        result.className = "audit-result correct";
+
+        title.textContent =
+            "✓ Good catch — possible duplicate payment.";
+
+        text.textContent =
+            "The same vendor received the same ₹68,000 amount " +
+            "on consecutive dates. This does not automatically mean " +
+            "an error or fraud, but the payment should be checked " +
+            "against invoices and supporting records.";
+
+        points.textContent =
+            "+10 points — Investigation complete.";
+
+    } else {
+
+        result.className = "audit-result wrong";
+
+        title.textContent =
+            "Good attempt — review the evidence once more.";
+
+        text.textContent =
+            "Compare the vendor names, dates and payment amounts. " +
+            "Look for transactions that appear unusually similar.";
+
+        points.textContent = "";
+
+    }
+
+}
+
 </script>
 
 </body>
