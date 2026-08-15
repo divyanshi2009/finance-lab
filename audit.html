@@ -1,1 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Audit Challenge | Finance Lab</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+
+    <style>
+        .audit-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 70px 30px 100px;
+        }
+
+        .audit-header {
+            max-width: 750px;
+            margin-bottom: 45px;
+        }
+
+        .audit-header h1 {
+            color: #0b1220;
+            font-size: clamp(42px, 5.5vw, 64px);
+            line-height: 1.05;
+        }
+
+        .audit-header h1 span {
+            color: #5b8def;
+        }
+
+        .audit-header p {
+            margin-top: 20px;
+            color: #697386;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .audit-case {
+            padding: 32px;
+            background: #ffffff;
+            border: 1px solid #e4e2dc;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(11,18,32,0.06);
+        }
+
+        .case-label {
+            color: #5b8def;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.8px;
+        }
+
+        .audit-case h2 {
+            margin: 10px 0;
+            color: #0b1220;
+            font-size: 28px;
+        }
+
+        .case-description {
+            margin-bottom: 25px;
+            color: #697386;
+            line-height: 1.7;
+        }
+
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+
+        .transaction-table th,
+        .transaction-table td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e4e2dc;
+        }
+
+        .transaction-table th {
+            color: #0b1220;
+            background: #f6f7f9;
+            font-size: 13px;
+        }
+
+        .transaction-table td {
+            color: #596273;
+            font-size: 14px;
+        }
+
+        .transaction-table tr.suspicious {
+            background: #fff8ed;
+        }
+
+        .transaction-table input[type="radio"] {
+            transform: scale(1.1);
+        }
+
+        .reason-box {
+            margin-top: 30px;
+        }
+
+        .reason-box label {
+            display: block;
+            margin-bottom: 9px;
+            color: #0b1220;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .reason-box textarea {
+            width: 100%;
+            min-height: 110px;
+            padding: 14px;
+            resize: vertical;
+            border: 1px solid #d3d8e1;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .audit-button {
+            width: 100%;
+            min-height: 50px;
+            margin-top: 22px;
+            border: none;
+            border-radius: 10px;
+            background: #0b1220;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .audit-button:hover {
+            opacity: 0.9;
+        }
+
+        .audit-result {
+            display: none;
+            margin-top: 25px;
+            padding: 22px;
+            border-radius: 12px;
+        }
+
+        .audit-result.correct {
+            background: #edf9f2;
+            border: 1px solid #c9ead7;
+        }
+
+        .audit-result.wrong {
+            background: #fff3f1;
+            border: 1px solid #f0cbc5;
+        }
+
+        .audit-result h3 {
+            margin-bottom: 8px;
+            color: #0b1220;
+        }
+
+        .audit-result p {
+            color: #596273;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        @media (max-width: 600px) {
+
+            .audit-page {
+                padding: 50px 16px 75px;
+            }
+
+            .audit-case {
+                padding: 22px 17px;
+            }
+
+            .audit-case h2 {
+                font-size: 24px;
+            }
+
+            .transaction-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .transaction-table th,
+            .transaction-table td {
+                padding: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <a href="index.html" class="logo">
+        Finance Lab
+    </a>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="tools.html">Tools</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="quiz.html">Challenge</a>
+        <a href="health.html">Health</a>
+    </nav>
+
+</header>
+
+
+<main class="audit-page">
+
+    <section class="audit-header">
+
+        <p class="eyebrow">
+            AUDIT CHALLENGE
+        </p>
+
+        <h1>
+            Find the transaction
+            <span>that needs investigation.</span>
+        </h1>
+
+        <p>
+            Review a small set of transactions, identify the one
+            that looks suspicious, and explain why you selected it.
+        </p>
+
+    </section>
+
+
+    <section class="audit-case">
+
+        <span class="case-label">
+            CASE 01 • TRANSACTION REVIEW
+        </span>
+
+        <h2>
+            Which transaction should an auditor investigate?
+        </h2>
+
+        <p class="case-description">
+            A company recorded the following transactions during
+            the month. One entry contains a potential red flag.
+            Review the information carefully before deciding.
+        </p>
+
+
+        <table class="transaction-table">
+
+            <thead>
+                <tr>
+                    <th>Select</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>
+                        <input type="radio" name="transaction" value="1">
+                    </td>
+                    <td>05 Aug</td>
+                    <td>Office Supplies</td>
+                    <td>₹8,500</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="radio" name="transaction" value="2">
+                    </td>
+                    <td>11 Aug</td>
+                    <td>Computer Equipment</td>
+                    <td>₹72,000</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="radio" name="transaction" value="3">
+                    </td>
+                    <td>28 Aug</td>
+                    <td>Consulting Expense</td>
+                    <td>₹9,800</td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="radio" name="transaction" value="4">
+                    </td>
+                    <td>31 Aug</td>
+                    <td>Miscellaneous Expense</td>
+                    <td>₹2,75,000</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+
+        <div class="reason-box">
+
+            <label for="reason">
+                Why did you choose this transaction?
+            </label>
+
+            <textarea
+                id="reason"
+                placeholder="Write your reasoning here..."
+            ></textarea>
+
+        </div>
+
+
+        <button class="audit-button" onclick="checkAudit()">
+            Submit Investigation
+        </button>
+
+
+        <div id="auditResult" class="audit-result">
+
+            <h3 id="resultTitle"></h3>
+
+            <p id="resultText"></p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div class="logo footer-logo">
+                Finance Lab
+            </div>
+
+            <p>
+                Practical finance tools for smarter decisions.
+            </p>
+
+        </div>
+
+        <div class="footer-links">
+
+            <a href="index.html">Home</a>
+            <a href="tools.html">Tools</a>
+            <a href="learn.html">Learn</a>
+            <a href="health.html">Financial Health</a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Finance Lab
+    </div>
+
+</footer>
+
+
+<script>
+function checkAudit() {
+
+    const selected = document.querySelector(
+        'input[name="transaction"]:checked'
+    );
+
+    const reason = document.getElementById("reason").value.trim();
+
+    const result = document.getElementById("auditResult");
+    const title = document.getElementById("resultTitle");
+    const text = document.getElementById("resultText");
+
+    if (!selected) {
+
+        result.style.display = "block";
+        result.className = "audit-result wrong";
+
+        title.textContent = "Select a transaction first.";
+
+        text.textContent =
+            "Choose the transaction you believe requires investigation.";
+
+        return;
+    }
+
+    if (!reason) {
+
+        result.style.display = "block";
+        result.className = "audit-result wrong";
+
+        title.textContent = "Add your reasoning.";
+
+        text.textContent =
+            "An auditor should be able to explain why a transaction was selected.";
+
+        return;
+    }
+
+
+    result.style.display = "block";
+
+
+    if (selected.value === "4") {
+
+        result.className = "audit-result correct";
+
+        title.textContent = "✓ Good catch — potential red flag.";
+
+        text.textContent =
+            "The ₹2,75,000 miscellaneous expense is unusually large compared " +
+            "with the other transactions and has a broad description. " +
+            "This does not automatically mean fraud, but it is a transaction " +
+            "that deserves additional supporting evidence and investigation.";
+
+    } else {
+
+        result.className = "audit-result wrong";
+
+        title.textContent = "Needs another look.";
+
+        text.textContent =
+            "This transaction does not stand out as strongly as the " +
+            "₹2,75,000 miscellaneous expense. Review the amounts and " +
+            "descriptions again and consider which entry would require " +
+            "the most supporting evidence.";
+
+    }
+
+}
+</script>
+
+</body>
+
+</html>
